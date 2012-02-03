@@ -17,6 +17,8 @@ def get_data(url, *args, **kwargs):
 
 
 class Posiedzenie(object):
+    def __init__(self, id=None, *args, **kwargs):
+        self.id = id
 
     def lista(self):
         """Zwraca listę posiedzeń"""
@@ -26,12 +28,14 @@ class Posiedzenie(object):
         return obj
 
     def __p(self, id, rest):
+        if id is None:
+            return None
         url = 'http://api.sejmometr.pl/posiedzenia/%s/%s'
         url = url % (id, rest)
         data = get_data(url)
         return data
 
-    def info(self, id):
+    def info(self, id=self.id):
         """Podstawowe informacje o posiedzeniu"""
         obj = json.loads(self.__p(id, "info"))
         print __name__
@@ -64,10 +68,10 @@ class Posiedzenie(object):
 
 
 if __name__ == '__main__':
-    p = Posiedzenie()
-    print p()
+    p = Posiedzenie("YXbTY")
+    #print p()
     #print p.dni("YXbTY")
-    #print p.info("YXbTY")
+    print p.info()
     #print p.projekty("YXbTY")
     #print p.bunty("YXbTY")
     #print p.nieobecni("YXbTY")
