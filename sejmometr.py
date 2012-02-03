@@ -35,30 +35,29 @@ class Posiedzenie(object):
         data = get_data(url)
         return data
 
-    def info(self, id=self.id):
+    def info(self):
         """Podstawowe informacje o posiedzeniu"""
-        obj = json.loads(self.__p(id, "info"))
-        print __name__
+        obj = json.loads(self.__p(self.id, "info"))
         return obj
 
-    def dni(self, id):
+    def dni(self):
         """Lista dni w ramach posiedzenia"""
-        obj = json.loads(self.__p(id, "dni"))
+        obj = json.loads(self.__p(self.id, "dni"))
         return obj
 
-    def projekty(self, id):
+    def projekty(self):
         """Lista projektow rozpatrywanych w ramach posiedzenia"""
-        obj = json.loads(self.__p(id, "projekty"))
+        obj = json.loads(self.__p(self.id, "projekty"))
         return obj
 
-    def bunty(self, id):
+    def bunty(self):
         """Lista posłów, któzy zagłosowali niezgodnie z linią swoich klubów"""
-        obj = json.loads(self.__p(id, "bunty"))
+        obj = json.loads(self.__p(self.id, "bunty"))
         return obj
 
-    def nieobecni(self, id):
+    def nieobecni(self):
         """Nieobecni posłowie"""
-        obj = json.loads(self.__p(id, "nieobecni"))
+        obj = json.loads(self.__p(self.id, "nieobecni"))
         return obj
 
     def __call__(self):
