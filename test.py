@@ -1,12 +1,11 @@
 import unittest
 
-from sejmometr import Posiedzenie
+from sejmometr import *
 
 class TestPosiedzenia(unittest.TestCase):
 
     def setUp(self):
         self.p = Posiedzenie(1)
-
 
     def test_info(self):
         self.assertEqual(self.p.id, 1)
@@ -44,6 +43,48 @@ class TestPosiedzenia(unittest.TestCase):
     def test_wystapienia(self):
         self.assertNotEqual(self.p.wystapienia, None)
         self.assertNotEqual(self.p.wystapienia, [])
+
+class TestPunkty(unittest.TestCase):
+    def setUp(self):
+        self.pkt = Punkt(1)
+
+    def test_info(self):
+        self.assertEqual(self.pkt.id, 1)
+        self.assertEqual(self.pkt.nr, 1)
+        self.assertNotEqual(self.pkt.posiedzenie_id, None)
+
+class TestGlosowania(unittest.TestCase):
+    def setUp(self):
+        self.g = Glosowanie(1)
+
+    def test_info(self):
+        self.assertEqual(self.g.id, 1)
+        self.assertEqual(self.g.nr, 1)
+        self.assertNotEqual(self.g.posiedzenie_id, None)
+
+class TestDni(unittest.TestCase):
+    def setUp(self):
+        self.d = Dzien(1)
+
+    def test_info(self):
+        self.assertEqual(self.d.id, 1)
+        self.assertNotEqual(self.d.posiedzenie_id, None)
+
+class TestRozpatrywan(unittest.TestCase):
+    def setUp(self):
+        self.r = Rozpatrywanie(1)
+
+    def test_info(self):
+        self.assertEqual(self.r.id, 1)
+        self.assertNotEqual(self.r.posiedzenie_id, None)
+
+class TestWystapien(unittest.TestCase):
+    def setUp(self):
+        self.w = Wystapienie(1)
+
+    def test_info(self):
+        self.assertEqual(self.w.id, 1)
+        self.assertNotEqual(self.w.posiedzenie_id, None)
 
 if __name__ == '__main__':
     unittest.main()

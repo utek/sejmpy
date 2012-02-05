@@ -16,7 +16,8 @@ def get_data(url, *args, **kwargs):
     return response
 
 class Common(object):
-    def _p(self, id, rest):
+    types = {}
+    def _get_data(self, id, rest):
         if id is None:
             return None
         url = 'http://api.sejmometr.pl/%s/%s/%s'
@@ -24,12 +25,38 @@ class Common(object):
         data = get_data(url)
         self._count += 1
         return data
-    pass
+
+    def _info(self):
+        """Podstawowe informacje"""
+        obj = json.loads(self._get_data(self._id, "info"))
+        for k,v in obj.iteritems():
+            if self.types.has_key(k):
+                _type = self.types[k]
+            else:
+                _type = int
+            val = None
+            if v is not None:
+                if _type is datetime:
+                    val = _type.strptime(v, "%Y-%m-%d %H:%M:%S")
+                else:
+                    val = _type(v)
+            setattr(self, "_%s" % k, val)
+        return True
 
     @property
     def id(self):
         return self._id
     nr = id
+
+    #def __getattribute__(*args):
+    #    _lookup = "_%s" % args[1]
+    #    try:
+    #        val = object.__getattribute__(args[0], _lookup)
+    #        if val is None:
+    #            pass
+    #    except AttributeError:
+    #        val = object.__getattribute__(*args)
+    #    return val
 
 
 class Posiedzenie(Common):
@@ -43,6 +70,9 @@ class Posiedzenie(Common):
         self._count = 0
         self._punkty = None
         self._glosowania = None
+        self._dni = None
+        self._wystapienia = None
+        self._rozpatrywania = None
 
     def __str__(self):
         return str(self.id)
@@ -104,7 +134,7 @@ class Posiedzenie(Common):
 
     def _info(self):
         """Podstawowe informacje o posiedzeniu"""
-        obj = json.loads(self._p(self._id, "info"))
+        obj = json.loads(self._get_data(self._id, "info"))
         self._tytul = obj['tytul']
         self._data_start = datetime.strptime(obj['data_start'], "%Y-%m-%d").date()
         self._data_stop = datetime.strptime(obj['data_stop'], "%Y-%m-%d").date()
@@ -118,7 +148,7 @@ class Posiedzenie(Common):
     @property
     def punkty(self):
         if self._punkty is None:
-            obj = json.loads(self._p(self._id, "punkty"))
+            obj = json.loads(self._get_data(self._id, "punkty"))
             self._punkty = []
             for elem in obj:
                 self._punkty.append(Punkt(elem))
@@ -127,7 +157,7 @@ class Posiedzenie(Common):
     @property
     def glosowania(self):
         if self._glosowania is None:
-            obj = json.loads(self._p(self._id, "glosowania"))
+            obj = json.loads(self._get_data(self._id, "glosowania"))
             self._glosowania = []
             for elem in obj:
                 self._glosowania.append(Glosowanie(elem))
@@ -136,11 +166,29 @@ class Posiedzenie(Common):
     @property
     def dni(self):
         if self._dni is None:
-            obj = json.loads(self._p(self._id, "dni"))
+            obj = json.loads(self._get_data(self._id, "dni"))
             self._dni = []
             for elem in obj:
                 self._dni.append(Dzien(elem))
         return self._dni
+
+    @property
+    def rozpatrywania(self):
+        if self._rozpatrywania is None:
+            obj = json.loads(self._get_data(self._id, "rozpatrywania"))
+            self._rozpatrywania = []
+            for elem in obj:
+                self._rozpatrywania.append(Rozpatrywanie(elem))
+        return self._rozpatrywania
+
+    @property
+    def wystapienia(self):
+        if self._wystapienia is None:
+            obj = json.loads(self._get_data(self._id, "wystapienia"))
+            self._wystapienia = []
+            for elem in obj:
+                self._wystapienia.append(Wystapienie(elem))
+        return self._wystapienia
 
 class Punkt(Common):
     def __init__(self, id=None, *args, **kwargs):
@@ -157,7 +205,10 @@ class Punkt(Common):
         self._glosowanie_id = None
 
 class Glosowanie(Common):
+    types = {"tytul":unicode, "time": datetime}
+
     def __init__(self, id=None, *args, **kwargs):
+        self._count = 0
         nr = kwargs.get("nr", None)
         if nr is not None:
             self._id = nr
@@ -179,7 +230,40 @@ class Glosowanie(Common):
         self._w = None # liczba "Wstrzymań"
         self._n = None # liczba posłów, którzy nie głosowali
 
+class Dzien(Common):
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+        self._posiedzenie_id = None
+        self._data = None
+        self._time_start = None
+        self._time_stop = None
+        self._dokument_id = None
+
+class Rozpatrywanie(Common):
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+        self._posiedzenie_id = None
+        self._dzien_id = None
+        self._punkt_id = None
+        self._tytul = None
+        self._ilosc_wystapien = None
+        self._ilosc_glosowan = None
+        self._time_start = None
+        self._time_stop = None
+
+def Wystapienie(Common):
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+        self._posiedzenie_id = None
+        self._dzien_id = None
+        self._punkt_id = None
+        self._rozpatrywanie_id = None
+        self._mowca_funkcja_id = None
+        self._mowca_id = None
+        self._posel_id = None
+        self._time_start = None
+        self._time_stop = None
 
 if __name__ == '__main__':
     a = Glosowanie(1)
-    print a.nr
+    print a.dupa
