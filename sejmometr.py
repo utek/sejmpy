@@ -15,55 +15,71 @@ def get_data(url, *args, **kwargs):
         print e
     return response
 
+class Common(object):
+    def _p(self, id, rest):
+        if id is None:
+            return None
+        url = 'http://api.sejmometr.pl/%s/%s/%s'
+        url = url % (self._class_._name_.lower(), id, rest)
+        data = get_data(url)
+        self._count += 1
+        return data
+    pass
 
-class Posiedzenie(object):
+    @property
+    def id(self):
+        return self._id
+    nr = id
+
+
+class Posiedzenie(Common):
     def __init__(self, id=None, *args, **kwargs):
-        self.__id = id
-        self.__tytul = None
-        self.__data_start = None
-        self.__data_stop = None
-        self.__ilosc_punktow = None
-        self.__ilosc_glosowan = None
-        self.__count = 0
-        self.__punkty = None
-        self.__glosowania = None
+        self._id = id
+        self._tytul = None
+        self._data_start = None
+        self._data_stop = None
+        self._ilosc_punktow = None
+        self._ilosc_glosowan = None
+        self._count = 0
+        self._punkty = None
+        self._glosowania = None
 
     def __str__(self):
         return str(self.id)
 
     @property
     def id(self):
-        return self.__id
+        return self._id
 
     @property
     def tytul(self):
-        if self.__tytul is None:
-            self.__info()
-        return self.__tytul
+        if self._tytul is None:
+            self._info()
+        return self._tytul
 
     @property
     def data_start(self):
-        if self.__data_start is None:
-            self.__info()
-        return self.__data_start
+        if self._data_start is None:
+            self._info()
+        return self._data_start
 
     @property
     def data_stop(self):
-        if self.__data_stop is None:
+        if self._data_stop is None:
             self.info()
-        return self.__data_stop
+        return self._data_stop
 
     @property
     def ilosc_punktow(self):
-        if self.__ilosc_punktow is None:
-            self.__info()
-        return self.__ilosc_punktow
+        if self._ilosc_punktow is None:
+            self._info()
+        return self._ilosc_punktow
 
     @property
     def ilosc_glosowan(self):
-        if self.__ilosc_glosowan is None:
-            self.__info()
-        return self.__ilosc_glosowan
+        if self._ilosc_glosowan is None:
+            self._info()
+        return self._ilosc_glosowan
 
 
     @staticmethod
@@ -77,101 +93,85 @@ class Posiedzenie(object):
             tab.append(Posiedzenie(i))
         return tab
 
-    def __p(self, id, rest):
-        if id is None:
-            return None
-        url = 'http://api.sejmometr.pl/posiedzenie/%s/%s'
-        url = url % (id, rest)
-        data = get_data(url)
-        self.__count += 1
-        return data
+    #def _p(self, id, rest):
+    #    if id is None:
+    #        return None
+    #    url = 'http://api.sejmometr.pl/posiedzenie/%s/%s'
+    #    url = url % (id, rest)
+    #    data = get_data(url)
+    #    self._count += 1
+    #    return data
 
-    def __info(self):
+    def _info(self):
         """Podstawowe informacje o posiedzeniu"""
-        obj = json.loads(self.__p(self.__id, "info"))
-        self.__tytul = obj['tytul']
-        self.__data_start = datetime.strptime(obj['data_start'], "%Y-%m-%d").date()
-        self.__data_stop = datetime.strptime(obj['data_stop'], "%Y-%m-%d").date()
-        self.__ilosc_punktow = int(obj['ilosc_punktow'])
-        self.__ilosc_glosowan = int(obj['ilosc_glosowan'])
+        obj = json.loads(self._p(self._id, "info"))
+        self._tytul = obj['tytul']
+        self._data_start = datetime.strptime(obj['data_start'], "%Y-%m-%d").date()
+        self._data_stop = datetime.strptime(obj['data_stop'], "%Y-%m-%d").date()
+        self._ilosc_punktow = int(obj['ilosc_punktow'])
+        self._ilosc_glosowan = int(obj['ilosc_glosowan'])
         return True
 
     def __call__(self):
-        return self.__count
+        return self._count
 
     @property
     def punkty(self):
-        if self.__punkty is None:
-            obj = json.loads(self.__p(self.__id, "punkty"))
-            self.__punkty = []
+        if self._punkty is None:
+            obj = json.loads(self._p(self._id, "punkty"))
+            self._punkty = []
             for elem in obj:
-                self.__punkty.append(Punkt(elem))
-        return self.__punkty
+                self._punkty.append(Punkt(elem))
+        return self._punkty
 
     @property
     def glosowania(self):
-        if self.__glosowania is None:
-            obj = json.loads(self.__p(self.__id, "glosowania"))
-            self.__glosowania = []
+        if self._glosowania is None:
+            obj = json.loads(self._p(self._id, "glosowania"))
+            self._glosowania = []
             for elem in obj:
-                self.__glosowania.append(Glosowanie(elem))
-        return self.__glosowania
+                self._glosowania.append(Glosowanie(elem))
+        return self._glosowania
 
 
-class Punkt(object):
-
+class Punkt(Common):
     def __init__(self, id=None, *args, **kwargs):
         nr = kwargs.get("nr", None)
         if nr is not None:
-            self.__id = nr
+            self._id = nr
         else:
-            self.__id = id
-        self.__tytul = None
-        self.__posiedzenie_id = None
-        self.__typ_id = None
-        self.__druk_id = None
-        self.__druk_akcja_id = None
-        self.__glosowanie_id = None
+            self._id = id
+        self._tytul = None
+        self._posiedzenie_id = None
+        self._typ_id = None
+        self._druk_id = None
+        self._druk_akcja_id = None
+        self._glosowanie_id = None
 
-    @property
-    def id(self):
-        return self.__id
-    nr = id
-
-class Glosowanie(object):
-
+class Glosowanie(Common):
     def __init__(self, id=None, *args, **kwargs):
         nr = kwargs.get("nr", None)
         if nr is not None:
-            self.__id = nr
+            self._id = nr
         else:
-            self.__id = id
-        self.__posiedzenie_id = None
-        self.__dzien_id = None
-        self.__punkt_id = None
-        self.__rozpatrywanie_id = None
-        self.__tytul = None
-        self.__wystapienie_id = None
-        self.__time = None
-        self.__wynik = None
-        self.__l = None #liczba posłów uprawionych do wzięcia udziału w głosowaniu
-        self.__g = None # liczba posłów, którzy wzieli udział w głosowaniu
-        self.__wb = None # większość bezwzględna
-        self.__z = None # liczba glosów "za"
-        self.__p = None # liczba głosów "przeciw"
-        self.__w = None # liczba "Wstrzymań"
-        self.__n = None # liczba posłów, którzy nie głosowali
+            self._id = id
+        self._posiedzenie_id = None
+        self._dzien_id = None
+        self._punkt_id = None
+        self._rozpatrywanie_id = None
+        self._tytul = None
+        self._wystapienie_id = None
+        self._time = None
+        self._wynik = None
+        self._l = None #liczba posłów uprawionych do wzięcia udziału w głosowaniu
+        self._g = None # liczba posłów, którzy wzieli udział w głosowaniu
+        self._wb = None # większość bezwzględna
+        self._z = None # liczba glosów "za"
+        self._p = None # liczba głosów "przeciw"
+        self._w = None # liczba "Wstrzymań"
+        self._n = None # liczba posłów, którzy nie głosowali
 
-    @property
-    def id(self):
-        return self.__id
-    nr = id
 
 if __name__ == '__main__':
-    a = Posiedzenie(1)
-    print a.punkty
-    print a.punkty
-    print a.punkty
-    print a.ilosc_punktow, len(a.punkty)
-    print a()
-
+    a = Glosowanie(1)
+    print a.nr
