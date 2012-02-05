@@ -23,11 +23,27 @@ class TestPosiedzenia(unittest.TestCase):
         #sprawdzenie czy tylko jedno zapytanie do api
         self.assertEqual(count+1, self.p())
 
-    def test_len_punkty(self):
+    def test_punkty(self):
         self.assertEqual(self.p.ilosc_punktow, len(self.p.punkty))
+        self.assertNotEqual(self.p.ilosc_punktow, None)
+        self.assertNotEqual(self.p.ilosc_punktow, [])
 
-    def test_len_glosowania(self):
+    def test_glosowania(self):
+        self.assertNotEqual(self.p.glosowania, None)
+        self.assertNotEqual(self.p.glosowania, [])
         self.assertEqual(self.p.ilosc_glosowan, len(self.p.glosowania))
-        
+
+    def test_dni(self):
+        self.assertNotEqual(self.p.dni, None)
+        self.assertNotEqual(self.p.dni, [])
+
+    def test_rozpatrywania(self):
+        self.assertNotEqual(self.p.rozpatrywania, None)
+        self.assertNotEqual(self.p.rozpatrywania, [])
+
+    def test_wystapienia(self):
+        self.assertNotEqual(self.p.wystapienia, None)
+        self.assertNotEqual(self.p.wystapienia, [])
+
 if __name__ == '__main__':
     unittest.main()

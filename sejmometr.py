@@ -20,7 +20,7 @@ class Common(object):
         if id is None:
             return None
         url = 'http://api.sejmometr.pl/%s/%s/%s'
-        url = url % (self._class_._name_.lower(), id, rest)
+        url = url % (self.__class__.__name__.lower(), id, rest)
         data = get_data(url)
         self._count += 1
         return data
@@ -133,6 +133,14 @@ class Posiedzenie(Common):
                 self._glosowania.append(Glosowanie(elem))
         return self._glosowania
 
+    @property
+    def dni(self):
+        if self._dni is None:
+            obj = json.loads(self._p(self._id, "dni"))
+            self._dni = []
+            for elem in obj:
+                self._dni.append(Dzien(elem))
+        return self._dni
 
 class Punkt(Common):
     def __init__(self, id=None, *args, **kwargs):
