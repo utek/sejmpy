@@ -98,11 +98,9 @@ class Common(object):
         _class_name = "%s_class" % _lookup
         cls = getattr(self, _class_name)
         cls_ = get_class(cls)
-        print "GET ATTR"
         try:
             val = self.__getattribute__(_lookup)
             if val is not None:
-                print "GET ATTR3"
                 return val
         except AssertionError:
             raise AssertionError
@@ -180,7 +178,4 @@ class Wystapienie(Common):
 
 
 if __name__ == '__main__':
-    a = Wystapienie(1)
-    print a()
-    b = a.tekst
-    print a()
+    pass
