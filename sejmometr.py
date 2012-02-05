@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+__version__ = "0.5"
+
 import sys
 from datetime import datetime, date
 import urllib2
@@ -7,18 +10,19 @@ try:
 except ImportError:
     import simplejson as json
 
-
 def get_data(url, *args, **kwargs):
     response = None
+    user_agent = "sejmpy/%s" % __version__
+    headers = {"User-Agent":user_agent}
     try:
-        response = urllib2.urlopen(url).read()
+        req = urllib2.Request(url, headers=headers)
+        response = urllib2.urlopen(req).read()
     except Exception as e:
         print e
     return response
 
 class Info(object):
     pass
-
 
 def get_class( cls ):
     return getattr(sys.modules[__name__], cls)
