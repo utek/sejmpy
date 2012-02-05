@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 from datetime import datetime, date
 import urllib2
 try:
@@ -18,6 +19,10 @@ def get_data(url, *args, **kwargs):
 class Info(object):
     pass
 
+
+def get_class( cls ):
+    return getattr(sys.modules[__name__], cls)
+
 class Common(object):
     types = {"data": date,
              "time_start":datetime,
@@ -30,6 +35,19 @@ class Common(object):
              }
     _count = 0
     _info = None
+    _all = "common"
+
+    @classmethod
+    def lista(cls):
+        "Zwraca liste obiektow"
+        url = 'http://api.sejmometr.pl/%s' % cls._all
+        data = get_data(url)
+        obj = json.loads(data)
+        tab = []
+        for i in obj:
+            tab.append(cls(i))
+        return tab
+
     @property
     def info(self):
         if self._info is None:
@@ -72,21 +90,37 @@ class Common(object):
         return self._id
     nr = id
 
-    #def __getattribute__(*args):
-    #    _lookup = "_%s" % args[1]
-    #    try:
-    #        val = object.__getattribute__(args[0], _lookup)
-    #        if val is None:
-    #            pass
-    #    except AttributeError:
-    #        val = object.__getattribute__(*args)
-    #    return val
+    def __call__(self):
+        return self._count
 
+    def __getattr__(self, name):
+        _lookup = "_%s" % name
+        _class_name = "%s_class" % _lookup
+        cls = getattr(self, _class_name)
+        cls_ = get_class(cls)
+        print "GET ATTR"
+        try:
+            val = self.__getattribute__(_lookup)
+            if val is not None:
+                print "GET ATTR3"
+                return val
+        except AssertionError:
+            raise AssertionError
+        obj = json.loads(self._get_data(self._id, name))
+        tab = []
+        for elem in obj:
+            tab.append(cls_(elem))
+        return tab
 
 class Posiedzenie(Common):
+    _all = "posiedzenia"
+    _punkty_class = "Punkt"
+    _glosowania_class = "Glosowanie"
+    _dni_class = "Dzien"
+    _wystapienia_class = "Wystapienie"
+    _rozpatrywania_class = "Rozpatrywanie"
 
     def __init__(self, id=None, *args, **kwargs):
-        self._info = None
         self._id = id
 
         self._punkty = None
@@ -95,92 +129,58 @@ class Posiedzenie(Common):
         self._wystapienia = None
         self._rozpatrywania = None
 
-    def __str__(self):
-        return str(self._id)
-
-    @staticmethod
-    def lista():
-        """Zwraca listę posiedzeń"""
-        url = 'http://api.sejmometr.pl/posiedzenia'
-        data = get_data(url)
-        obj = json.loads(data)
-        tab = []
-        for i in obj:
-            tab.append(Posiedzenie(i))
-        return tab
-
-    def __call__(self):
-        return self._count
-
-    @property
-    def punkty(self):
-        if self._punkty is None:
-            obj = json.loads(self._get_data(self._id, "punkty"))
-            self._punkty = []
-            for elem in obj:
-                self._punkty.append(Punkt(elem))
-        return self._punkty
-
-    @property
-    def glosowania(self):
-        if self._glosowania is None:
-            obj = json.loads(self._get_data(self._id, "glosowania"))
-            self._glosowania = []
-            for elem in obj:
-                self._glosowania.append(Glosowanie(elem))
-        return self._glosowania
-
-    @property
-    def dni(self):
-        if self._dni is None:
-            obj = json.loads(self._get_data(self._id, "dni"))
-            self._dni = []
-            for elem in obj:
-                self._dni.append(Dzien(elem))
-        return self._dni
-
-    @property
-    def rozpatrywania(self):
-        if self._rozpatrywania is None:
-            obj = json.loads(self._get_data(self._id, "rozpatrywania"))
-            self._rozpatrywania = []
-            for elem in obj:
-                self._rozpatrywania.append(Rozpatrywanie(elem))
-        return self._rozpatrywania
-
-    @property
-    def wystapienia(self):
-        if self._wystapienia is None:
-            obj = json.loads(self._get_data(self._id, "wystapienia"))
-            self._wystapienia = []
-            for elem in obj:
-                self._wystapienia.append(Wystapienie(elem))
-        return self._wystapienia
-
 class Punkt(Common):
+    _all = "punkty"
+    _rozpatrywania_class = "Rozpatrywanie"
+
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
+        self._rozpatrywania = None
 
 class Glosowanie(Common):
+    _all = "glosowania"
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
 
 class Dzien(Common):
+    _all = "dni"
+
+    _glosowania_class = "Glosowanie"
+    _wystapienia_class = "Wystapienie"
+    _rozpatrywania_class = "Rozpatrywanie"
+
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
+        self._glosowania = None
+        self._rozpatrywania = None
+        self._wystapienia = None
 
 class Rozpatrywanie(Common):
-    def __init__(self, id=None, *args, **kwargs):
-        self._id = id
+    _all = "rozpatrywania"
 
-def Wystapienie(Common):
+    _glosowania_class = "Glosowanie"
+    _wystapienia_class = "Wystapienie"
+
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
+        self._glosowania = None
+        self._wystapienia = None
+
+class Wystapienie(Common):
+    _all = "wystapienia"
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+        self._tekst = None
+
+    @property
+    def tekst(self):
+        if self._tekst is None:
+            self._tekst = unicode(self._get_data(self.id, "tekst"))
+        return self._tekst
+
 
 if __name__ == '__main__':
-    lista_posiedzen = Posiedzenie.lista()
-    posiedzenie = lista_posiedzen[0]
-    print posiedzenie.info.tytul
-    print posiedzenie.info.ilosc_punktow
-    print len(posiedzenie.punkty)
-    print posiedzenie()
+    a = Wystapienie(1)
+    print a()
+    b = a.tekst
+    print a()
