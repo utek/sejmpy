@@ -1,19 +1,20 @@
-=== Sejmy.py ===
+========
+Sejmy.py
+========
 
 Moduł pythona ułatwiajacy korzystanie z API sejmometr.pl
 (http://sejmometr.pl/api/api)
 
----
+Przykład użycia::
+===============
 
-====Przykład użycia====
-'''
-import sejmometr
 
-lista_posiedzen = sejmometr.Posiedzenie.lista()
+    import sejmometr
 
-posiedzenie = lista_posiedzien[0]
+    lista_posiedzen = sejmometr.Posiedzenie.lista()
 
-print posiedzenie.tytul
-print posiedzenie.ilosc_punktow
-print len(posiedzenie.lista_punktow)
-'''
+    posiedzenie = lista_posiedzien[0]
+
+    print posiedzenie.tytul
+    print posiedzenie.ilosc_punktow
+    print len(posiedzenie.lista_punktow)
