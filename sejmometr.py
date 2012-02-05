@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import datetime, date
 import urllib2
 try:
     import json
@@ -11,12 +11,31 @@ def get_data(url, *args, **kwargs):
     response = None
     try:
         response = urllib2.urlopen(url).read()
-    except Exeption as e:
+    except Exception as e:
         print e
     return response
 
+class Info(object):
+    pass
+
 class Common(object):
-    types = {}
+    types = {"data": date,
+             "time_start":datetime,
+             "time_stop":datetime,
+             "tytul":unicode,
+             "time":datetime,
+             "nr": unicode,
+             "data_start": date,
+             "data_stop": date,
+             }
+    _count = 0
+    _info = None
+    @property
+    def info(self):
+        if self._info is None:
+            self._get_info()
+        return self._info
+
     def _get_data(self, id, rest):
         if id is None:
             return None
@@ -26,9 +45,9 @@ class Common(object):
         self._count += 1
         return data
 
-    def _info(self):
-        """Podstawowe informacje"""
+    def _get_info(self):
         obj = json.loads(self._get_data(self._id, "info"))
+        self._info = Info()
         for k,v in obj.iteritems():
             if self.types.has_key(k):
                 _type = self.types[k]
@@ -37,10 +56,15 @@ class Common(object):
             val = None
             if v is not None:
                 if _type is datetime:
-                    val = _type.strptime(v, "%Y-%m-%d %H:%M:%S")
+                    try:
+                        val = datetime.strptime(v, "%Y-%m-%d %H:%M:%S")
+                    except ValueError:
+                        val = unicode(v)
+                elif _type is date:
+                    val = datetime.strptime(v, "%Y-%m-%d").date()
                 else:
                     val = _type(v)
-            setattr(self, "_%s" % k, val)
+            setattr(self._info, "%s" % k, val)
         return True
 
     @property
@@ -60,14 +84,11 @@ class Common(object):
 
 
 class Posiedzenie(Common):
+
     def __init__(self, id=None, *args, **kwargs):
+        self._info = None
         self._id = id
-        self._tytul = None
-        self._data_start = None
-        self._data_stop = None
-        self._ilosc_punktow = None
-        self._ilosc_glosowan = None
-        self._count = 0
+
         self._punkty = None
         self._glosowania = None
         self._dni = None
@@ -75,42 +96,7 @@ class Posiedzenie(Common):
         self._rozpatrywania = None
 
     def __str__(self):
-        return str(self.id)
-
-    @property
-    def id(self):
-        return self._id
-
-    @property
-    def tytul(self):
-        if self._tytul is None:
-            self._info()
-        return self._tytul
-
-    @property
-    def data_start(self):
-        if self._data_start is None:
-            self._info()
-        return self._data_start
-
-    @property
-    def data_stop(self):
-        if self._data_stop is None:
-            self.info()
-        return self._data_stop
-
-    @property
-    def ilosc_punktow(self):
-        if self._ilosc_punktow is None:
-            self._info()
-        return self._ilosc_punktow
-
-    @property
-    def ilosc_glosowan(self):
-        if self._ilosc_glosowan is None:
-            self._info()
-        return self._ilosc_glosowan
-
+        return str(self._id)
 
     @staticmethod
     def lista():
@@ -122,25 +108,6 @@ class Posiedzenie(Common):
         for i in obj:
             tab.append(Posiedzenie(i))
         return tab
-
-    #def _p(self, id, rest):
-    #    if id is None:
-    #        return None
-    #    url = 'http://api.sejmometr.pl/posiedzenie/%s/%s'
-    #    url = url % (id, rest)
-    #    data = get_data(url)
-    #    self._count += 1
-    #    return data
-
-    def _info(self):
-        """Podstawowe informacje o posiedzeniu"""
-        obj = json.loads(self._get_data(self._id, "info"))
-        self._tytul = obj['tytul']
-        self._data_start = datetime.strptime(obj['data_start'], "%Y-%m-%d").date()
-        self._data_stop = datetime.strptime(obj['data_stop'], "%Y-%m-%d").date()
-        self._ilosc_punktow = int(obj['ilosc_punktow'])
-        self._ilosc_glosowan = int(obj['ilosc_glosowan'])
-        return True
 
     def __call__(self):
         return self._count
@@ -192,81 +159,28 @@ class Posiedzenie(Common):
 
 class Punkt(Common):
     def __init__(self, id=None, *args, **kwargs):
-        nr = kwargs.get("nr", None)
-        if nr is not None:
-            self._id = nr
-        else:
-            self._id = id
-        self._tytul = None
-        self._posiedzenie_id = None
-        self._typ_id = None
-        self._druk_id = None
-        self._druk_akcja_id = None
-        self._glosowanie_id = None
+        self._id = id
 
 class Glosowanie(Common):
-    types = {"tytul":unicode, "time": datetime}
-
     def __init__(self, id=None, *args, **kwargs):
-        self._count = 0
-        nr = kwargs.get("nr", None)
-        if nr is not None:
-            self._id = nr
-        else:
-            self._id = id
-        self._posiedzenie_id = None
-        self._dzien_id = None
-        self._punkt_id = None
-        self._rozpatrywanie_id = None
-        self._tytul = None
-        self._wystapienie_id = None
-        self._time = None
-        self._wynik = None
-        self._l = None #liczba posłów uprawionych do wzięcia udziału w głosowaniu
-        self._g = None # liczba posłów, którzy wzieli udział w głosowaniu
-        self._wb = None # większość bezwzględna
-        self._z = None # liczba glosów "za"
-        self._p = None # liczba głosów "przeciw"
-        self._w = None # liczba "Wstrzymań"
-        self._n = None # liczba posłów, którzy nie głosowali
+        self._id = id
 
 class Dzien(Common):
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
-        self._posiedzenie_id = None
-        self._data = None
-        self._time_start = None
-        self._time_stop = None
-        self._dokument_id = None
 
 class Rozpatrywanie(Common):
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
-        self._posiedzenie_id = None
-        self._dzien_id = None
-        self._punkt_id = None
-        self._tytul = None
-        self._ilosc_wystapien = None
-        self._ilosc_glosowan = None
-        self._time_start = None
-        self._time_stop = None
 
 def Wystapienie(Common):
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
-        self._posiedzenie_id = None
-        self._dzien_id = None
-        self._punkt_id = None
-        self._rozpatrywanie_id = None
-        self._mowca_funkcja_id = None
-        self._mowca_id = None
-        self._posel_id = None
-        self._time_start = None
-        self._time_stop = None
 
 if __name__ == '__main__':
     lista_posiedzen = Posiedzenie.lista()
     posiedzenie = lista_posiedzen[0]
-    print posiedzenie.tytul
-    print posiedzenie.ilosc_punktow
+    print posiedzenie.info.tytul
+    print posiedzenie.info.ilosc_punktow
     print len(posiedzenie.punkty)
+    print posiedzenie()
