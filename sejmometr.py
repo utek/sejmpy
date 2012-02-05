@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = "0.5"
+__version__ = "0.6"
 
 import sys
 from datetime import datetime, date
@@ -98,16 +98,21 @@ class Common(object):
         return self._count
 
     def __getattr__(self, name):
+        if name.rfind('class') >= 0:
+            raise AttributeError(name.rstrip("class").strip("_") + " does not exist")
         _lookup = "_%s" % name
         _class_name = "%s_class" % _lookup
-        cls = getattr(self, _class_name)
+        try:
+            cls = getattr(self, _class_name)
+        except RuntimeError:
+            raise AttributeError
         cls_ = get_class(cls)
         try:
             val = self.__getattribute__(_lookup)
             if val is not None:
                 return val
-        except AssertionError:
-            raise AssertionError
+        except AttributeError:
+            raise AttributeError
         obj = json.loads(self._get_data(self._id, name))
         tab = []
         for elem in obj:
@@ -134,10 +139,12 @@ class Posiedzenie(Common):
 class Punkt(Common):
     _all = "punkty"
     _rozpatrywania_class = "Rozpatrywanie"
+    _druki_class = "Druk"
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
         self._rozpatrywania = None
+        self._druki = None
 
 class Glosowanie(Common):
     _all = "glosowania"
@@ -180,6 +187,23 @@ class Wystapienie(Common):
             self._tekst = unicode(self._get_data(self.id, "tekst"))
         return self._tekst
 
+class Druk(Common):
+    _all = "druki"
+
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+
+class Dokument(Common):
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+        self._tekst = None
+
+
+    @property
+    def tekst(self):
+        if self._tekst is None:
+            self._tekst = unicode(self._get_data(self.id, "tekst"))
+        return self._tekst
 
 if __name__ == '__main__':
     pass
