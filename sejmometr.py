@@ -265,5 +265,8 @@ def Wystapienie(Common):
         self._time_stop = None
 
 if __name__ == '__main__':
-    a = Glosowanie(1)
-    print a.dupa
+    lista_posiedzen = Posiedzenie.lista()
+    posiedzenie = lista_posiedzen[0]
+    print posiedzenie.tytul
+    print posiedzenie.ilosc_punktow
+    print len(posiedzenie.punkty)

@@ -12,7 +12,7 @@ Posiedzenia::
 
     import sejmometr
     lista_posiedzen = sejmometr.Posiedzenie.lista()
-    posiedzenie = lista_posiedzien[0]
+    posiedzenie = lista_posiedzen[0]
     print posiedzenie.tytul
     print posiedzenie.ilosc_punktow
-    print len(posiedzenie.lista_punktow)
+    print len(posiedzenie.punkty)
