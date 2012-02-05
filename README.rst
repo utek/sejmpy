@@ -5,10 +5,10 @@ Sejmy.py
 Moduł pythona ułatwiajacy korzystanie z API sejmometr.pl
 (http://sejmometr.pl/api/api)
 
-Przykład użycia::
+Przykład użycia
 ===============
 
-
+Posiedzenia::
     import sejmometr
 
     lista_posiedzen = sejmometr.Posiedzenie.lista()
