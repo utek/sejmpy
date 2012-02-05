@@ -23,7 +23,11 @@ class TestPosiedzenia(unittest.TestCase):
         #sprawdzenie czy tylko jedno zapytanie do api
         self.assertEqual(count+1, self.p())
 
+    def test_len_punkty(self):
+        self.assertEqual(self.p.ilosc_punktow, len(self.p.punkty))
 
-
+    def test_len_glosowania(self):
+        self.assertEqual(self.p.ilosc_glosowan, len(self.p.glosowania))
+        
 if __name__ == '__main__':
     unittest.main()

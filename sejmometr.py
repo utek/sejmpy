@@ -25,6 +25,11 @@ class Posiedzenie(object):
         self.__ilosc_punktow = None
         self.__ilosc_glosowan = None
         self.__count = 0
+        self.__punkty = None
+        self.__glosowania = None
+
+    def __str__(self):
+        return str(self.id)
 
     @property
     def id(self):
@@ -60,12 +65,17 @@ class Posiedzenie(object):
             self.__info()
         return self.__ilosc_glosowan
 
-    def lista(self):
+
+    @staticmethod
+    def lista():
         """Zwraca listę posiedzeń"""
         url = 'http://api.sejmometr.pl/posiedzenia'
         data = get_data(url)
         obj = json.loads(data)
-        return obj
+        tab = []
+        for i in obj:
+            tab.append(Posiedzenie(i))
+        return tab
 
     def __p(self, id, rest):
         if id is None:
@@ -86,39 +96,82 @@ class Posiedzenie(object):
         self.__ilosc_glosowan = int(obj['ilosc_glosowan'])
         return True
 
-    def dni(self):
-        """Lista dni w ramach posiedzenia"""
-        obj = json.loads(self.__p(self.__id, "dni"))
-        return obj
-
-    def projekty(self):
-        """Lista projektow rozpatrywanych w ramach posiedzenia"""
-        obj = json.loads(self.__p(self.__id, "projekty"))
-        return obj
-
-    def bunty(self):
-        """Lista posłów, któzy zagłosowali niezgodnie z linią swoich klubów"""
-        obj = json.loads(self.__p(self.__id, "bunty"))
-        return obj
-
-    def nieobecni(self):
-        """Nieobecni posłowie"""
-        obj = json.loads(self.__p(self.__id, "nieobecni"))
-        return obj
-
     def __call__(self):
         return self.__count
 
+    @property
+    def punkty(self):
+        if self.__punkty is None:
+            obj = json.loads(self.__p(self.__id, "punkty"))
+            self.__punkty = []
+            for elem in obj:
+                self.__punkty.append(Punkt(elem))
+        return self.__punkty
+
+    @property
+    def glosowania(self):
+        if self.__glosowania is None:
+            obj = json.loads(self.__p(self.__id, "glosowania"))
+            self.__glosowania = []
+            for elem in obj:
+                self.__glosowania.append(Glosowanie(elem))
+        return self.__glosowania
 
 
+class Punkt(object):
+
+    def __init__(self, id=None, *args, **kwargs):
+        nr = kwargs.get("nr", None)
+        if nr is not None:
+            self.__id = nr
+        else:
+            self.__id = id
+        self.__tytul = None
+        self.__posiedzenie_id = None
+        self.__typ_id = None
+        self.__druk_id = None
+        self.__druk_akcja_id = None
+        self.__glosowanie_id = None
+
+    @property
+    def id(self):
+        return self.__id
+    nr = id
+
+class Glosowanie(object):
+
+    def __init__(self, id=None, *args, **kwargs):
+        nr = kwargs.get("nr", None)
+        if nr is not None:
+            self.__id = nr
+        else:
+            self.__id = id
+        self.__posiedzenie_id = None
+        self.__dzien_id = None
+        self.__punkt_id = None
+        self.__rozpatrywanie_id = None
+        self.__tytul = None
+        self.__wystapienie_id = None
+        self.__time = None
+        self.__wynik = None
+        self.__l = None #liczba posłów uprawionych do wzięcia udziału w głosowaniu
+        self.__g = None # liczba posłów, którzy wzieli udział w głosowaniu
+        self.__wb = None # większość bezwzględna
+        self.__z = None # liczba glosów "za"
+        self.__p = None # liczba głosów "przeciw"
+        self.__w = None # liczba "Wstrzymań"
+        self.__n = None # liczba posłów, którzy nie głosowali
+
+    @property
+    def id(self):
+        return self.__id
+    nr = id
 
 if __name__ == '__main__':
-    p = Posiedzenie(1)
-    print "id:\t\t\t", p.id
-    print "tytul:\t\t\t", p.tytul
-    print "data start:\t\t", p.data_start
-    print "data stop:\t\t", p.data_stop
-    print "ilosc punktow:\t\t", p.ilosc_punktow
-    print "ilosc glosowan:\t\t", p.ilosc_glosowan
-    print "ilosc zapytan do api:\t", p()
-    
+    a = Posiedzenie(1)
+    print a.punkty
+    print a.punkty
+    print a.punkty
+    print a.ilosc_punktow, len(a.punkty)
+    print a()
+
