@@ -99,7 +99,7 @@ class Common(object):
 
     def __getattr__(self, name):
         if name.rfind('class') >= 0:
-            raise AttributeError(name.rstrip("class").strip("_") + " does not exist")
+            raise AttributeError(name.replace("_class", "")[1:] + " does not exist")
         _lookup = "_%s" % name
         _class_name = "%s_class" % _lookup
         try:
