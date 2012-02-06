@@ -64,6 +64,11 @@ class TestPunkty(unittest.TestCase):
         self.assertEqual(self.pkt.id, 14)
         self.assertNotEqual(self.pkt.info.posiedzenie_id, None)
 
+    def test_info_add(self):
+        self.assertIsInstance(self.pkt.info.posiedzenie, Posiedzenie)
+        self.assertIsInstance(self.pkt.info.glosowanie, Glosowanie)
+        self.assertIsInstance(self.pkt.info.druk, Druk)
+
     def test_lista(self):
         self.assertNotEqual(Punkt.lista(), None)
         self.assertNotEqual(Punkt.lista(), [])

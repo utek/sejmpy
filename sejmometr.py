@@ -146,6 +146,15 @@ class Punkt(Common):
         self._rozpatrywania = None
         self._druki = None
 
+    @property
+    def info(self):
+        info_ = super(Punkt, self).info
+        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
+        self._info.glosowanie = Glosowanie(self._info.glosowanie_id)
+        self._info.druk = Druk(self._info.druk_id)
+        return self._info
+
+
 class Glosowanie(Common):
     _all = "glosowania"
     def __init__(self, id=None, *args, **kwargs):
