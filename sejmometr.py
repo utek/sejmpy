@@ -320,5 +320,23 @@ class Posel(Common):
         self._oswiadczenia_majatkowe = None
         self._rejestr_korzysci = None
 
+    @property
+    def rejestr_korzysci(self):
+        if self._rejestr_korzysci is None:
+            self._rejestr_korzysci = self._get_data(self.id, "rejestr_korzysci")
+        return self._rejestr_korzysci
+
+    @property
+    def oswiadczenia_majatkowe(self):
+        if self._oswiadczenia_majatkowe is None:
+            self._oswiadczenia_majatkowe = self._get_data(self.id, "oswiadczenia_majatkowe")
+        return self._oswiadczenia_majatkowe
+
+    @property
+    def komisje(self):
+        if self._komisje is None:
+            self._komisje = self._get_data(self.id, "komisje")
+        return self._komisje
+
 if __name__ == '__main__':
     pass
