@@ -119,7 +119,10 @@ class Common(object):
                     except ValueError:
                         val = str(v)
                 elif _type is date:
-                    val = datetime.strptime(v, "%Y-%m-%d").date()
+                    if v == "0000-00-00":
+                        val = None
+                    else:
+                        val = datetime.strptime(v, "%Y-%m-%d").date()
                 else:
                     val = _type(v)
             setattr(self._info, "%s" % k, val)
