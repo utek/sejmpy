@@ -8,17 +8,17 @@ class TestPosiedzenia(unittest.TestCase):
         self.p = Posiedzenie(1)
 
     def test_info(self):
-        self.assertEqual(self.p.id, 1)
+        self.assertEqual(self.p.id_, 1)
         self.assertEqual(self.p(), 0)
         from datetime import date
         d = date(2012, 1, 1)
         count = self.p()
-        self.assertEqual(type(self.p.info.tytul), type(u"a"))
-        self.assertEqual(type(self.p.id), type(1))
-        self.assertEqual(type(self.p.info.data_start), type(d))
-        self.assertEqual(type(self.p.info.data_stop), type(d))
-        self.assertEqual(type(self.p.info.ilosc_punktow), type(1))
-        self.assertEqual(type(self.p.info.ilosc_glosowan), type(1))
+        self.assertIsInstance(self.p.info.tytul, str)
+        self.assertIsInstance(self.p.id_, int)
+        self.assertIsInstance(self.p.info.data_start, date)
+        self.assertIsInstance(self.p.info.data_stop, date)
+        self.assertIsInstance(self.p.info.ilosc_punktow, int)
+        self.assertIsInstance(self.p.info.ilosc_glosowan, int)
         #sprawdzenie czy tylko jedno zapytanie do api
         self.assertEqual(count+1, self.p())
 
@@ -61,7 +61,7 @@ class TestPunkty(unittest.TestCase):
         self.pkt = Punkt(14)
 
     def test_info(self):
-        self.assertEqual(self.pkt.id, 14)
+        self.assertEqual(self.pkt.id_, 14)
         self.assertNotEqual(self.pkt.info.posiedzenie_id, None)
 
     def test_info_add(self):
@@ -88,7 +88,7 @@ class TestGlosowania(unittest.TestCase):
         self.g = Glosowanie(1)
 
     def test_info(self):
-        self.assertEqual(self.g.id, 1)
+        self.assertEqual(self.g.id_, 1)
         self.assertNotEqual(self.g.info.posiedzenie_id, None)
 
     def test_lista(self):
@@ -100,7 +100,7 @@ class TestDni(unittest.TestCase):
         self.d = Dzien(1)
 
     def test_info(self):
-        self.assertEqual(self.d.id, 1)
+        self.assertEqual(self.d.id_, 1)
         self.assertNotEqual(self.d.info.posiedzenie_id, None)
 
     def test_lista(self):
@@ -115,16 +115,16 @@ class TestRozpatrywan(unittest.TestCase):
         self.assertNotEqual(Rozpatrywanie.lista(), None)
 
     def test_info(self):
-        self.assertEqual(self.r.id, 1)
+        self.assertEqual(self.r.id_, 1)
         self.assertNotEqual(self.r.info.posiedzenie_id, None)
 
 class TestWystapien(unittest.TestCase):
     def setUp(self):
         self.wy = Wystapienie(1)
-        print type(self.wy)
+        print((type(self.wy)))
 
     def test_info(self):
-        self.assertEqual(self.wy.id, 1)
+        self.assertEqual(self.wy.id_, 1)
         self.assertNotEqual(self.wy.info.posiedzenie_id, None)
 
 if __name__ == '__main__':
