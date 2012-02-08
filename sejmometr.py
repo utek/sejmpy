@@ -30,7 +30,7 @@ def get_data_urllib(url, *args, **kwargs):
 
 try:
     import httplib2
-    http = getlib.Http(".sejmometr_cache")
+    http = httplib2.Http(".sejmometr_cache")
     get_data = get_data_httplib2
 except ImportError:
     import urllib2
