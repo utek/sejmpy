@@ -1,6 +1,7 @@
 import unittest
 
 from sejmometr import *
+import datetime
 
 class TestPosiedzenia(unittest.TestCase):
 
@@ -125,6 +126,17 @@ class TestWystapien(unittest.TestCase):
     def test_info(self):
         self.assertEqual(self.wy.id, 1)
         self.assertNotEqual(self.wy.info.posiedzenie_id, None)
+
+class TestPoslow(unittest.TestCase):
+    def setUp(self):
+        self.obj = Posel(460)
+
+    def test_lista(self):
+        self.assertNotEqual(Posel.lista(), None)
+
+    def test_info(self):
+        self.assertEqual(self.obj.id, 460)
+        self.assertIsInstance(self.info.data_urodzenia, datetime.date)
 
 if __name__ == '__main__':
     unittest.main()
