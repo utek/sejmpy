@@ -1,16 +1,23 @@
-# -*- coding: utf-8 -*-
+__version__ = "0.6.5"
 
-__version__ = "0.6"
-
+import json
 import sys
 from datetime import datetime, date
-import urllib2
-try:
-    import json
-except ImportError:
-    import simplejson as json
 
-def get_data(url, *args, **kwargs):
+
+
+def get_data_httplib2(url, *args, **kwargs):
+    response = None
+    user_agent = "sejmpy/{}".format( __version__)
+    headers = {"User-Agent":user_agent}
+
+    try:
+        response, content = http.request(url, headers=headers)
+    except Exception as e:
+        print e
+    return content.decode("utf-8")
+
+def get_data_urllib(url, *args, **kwargs):
     response = None
     user_agent = "sejmpy/%s" % __version__
     headers = {"User-Agent":user_agent}
@@ -21,11 +28,22 @@ def get_data(url, *args, **kwargs):
         print e
     return response
 
+try:
+    import httplib2
+    http = getlib.Http(".sejmometr_cache")
+    get_data = get_data_httplib2
+except ImportError:
+    import urllib2
+    get_data = get_data_urllib
+
+
 class Info(object):
     pass
 
-def get_class( cls ):
+
+def get_class(cls):
     return getattr(sys.modules[__name__], cls)
+
 
 class Common(object):
     types = {"data": date,
@@ -41,10 +59,11 @@ class Common(object):
     _info = None
     _all = "common"
 
+
     @classmethod
     def lista(cls):
         "Zwraca liste obiektow"
-        url = 'http://api.sejmometr.pl/%s' % cls._all
+        url = "http://api.sejmometr.pl/{}".format(cls._all)
         data = get_data(url)
         obj = json.loads(data)
         tab = []
@@ -52,26 +71,30 @@ class Common(object):
             tab.append(cls(i))
         return tab
 
+
     @property
     def info(self):
         if self._info is None:
             self._get_info()
         return self._info
 
+
     def _get_data(self, id, rest):
         if id is None:
             return None
-        url = 'http://api.sejmometr.pl/%s/%s/%s'
-        url = url % (self.__class__.__name__.lower(), id, rest)
+        url_dict = {"name": self.__class__.__name__.lower(), "id": id,
+                    "rest": rest}
+        url = "http://api.sejmometr.pl/{name}/{id}/{rest}".format(**url_dict)
         data = get_data(url)
         self._count += 1
         return data
 
+
     def _get_info(self):
         obj = json.loads(self._get_data(self._id, "info"))
         self._info = Info()
-        for k,v in obj.iteritems():
-            if self.types.has_key(k):
+        for k,v in list(obj.items()):
+            if k in self.types:
                 _type = self.types[k]
             else:
                 _type = int
@@ -81,7 +104,7 @@ class Common(object):
                     try:
                         val = datetime.strptime(v, "%Y-%m-%d %H:%M:%S")
                     except ValueError:
-                        val = unicode(v)
+                        val = str(v)
                 elif _type is date:
                     val = datetime.strptime(v, "%Y-%m-%d").date()
                 else:
@@ -89,19 +112,23 @@ class Common(object):
             setattr(self._info, "%s" % k, val)
         return True
 
+
     @property
     def id(self):
         return self._id
     nr = id
 
+
     def __call__(self):
         return self._count
 
+
     def __getattr__(self, name):
         if name.rfind('class') >= 0:
-            raise AttributeError(name.replace("_class", "")[1:] + " does not exist")
-        _lookup = "_%s" % name
-        _class_name = "%s_class" % _lookup
+            raise AttributeError(name.replace("_class", "")[1:] +
+                                 " does not exist")
+        _lookup = "_{}".format(name)
+        _class_name = "{}_class".format(_lookup)
         try:
             cls = getattr(self, _class_name)
         except RuntimeError:
@@ -119,6 +146,7 @@ class Common(object):
             tab.append(cls_(elem))
         return tab
 
+
 class Posiedzenie(Common):
     _all = "posiedzenia"
     _punkty_class = "Punkt"
@@ -126,6 +154,7 @@ class Posiedzenie(Common):
     _dni_class = "Dzien"
     _wystapienia_class = "Wystapienie"
     _rozpatrywania_class = "Rozpatrywanie"
+
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
@@ -136,15 +165,18 @@ class Posiedzenie(Common):
         self._wystapienia = None
         self._rozpatrywania = None
 
+
 class Punkt(Common):
     _all = "punkty"
     _rozpatrywania_class = "Rozpatrywanie"
     _druki_class = "Druk"
 
+
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
         self._rozpatrywania = None
         self._druki = None
+
 
     @property
     def info(self):
@@ -157,6 +189,7 @@ class Punkt(Common):
 
 class Glosowanie(Common):
     _all = "glosowania"
+
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
         self._wyniki = None #po dopisaniu poslow uwzglednic w metodzie.
@@ -170,7 +203,6 @@ class Glosowanie(Common):
         self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
         self._info.wystapienie = Wystapienie(self._info.wystapienie_id)
         return self._info
-
 
 class Dzien(Common):
     _all = "dni"
@@ -211,6 +243,7 @@ class Rozpatrywanie(Common):
         self._info.punkt = Punkt(self._info.punkt_id)
         return self._info
 
+
 class Wystapienie(Common):
     _all = "wystapienia"
     def __init__(self, id=None, *args, **kwargs):
@@ -220,7 +253,7 @@ class Wystapienie(Common):
     @property
     def tekst(self):
         if self._tekst is None:
-            self._tekst = unicode(self._get_data(self.id, "tekst"))
+            self._tekst = str(self._get_data(self.id, "tekst"))
         return self._tekst
 
     @property
@@ -231,6 +264,7 @@ class Wystapienie(Common):
         self._info.punkt = Punkt(self._info.punkt_id)
         self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
         return self._info
+
 
 class Druk(Common):
     _all = "druki"
@@ -253,8 +287,9 @@ class Dokument(Common):
     @property
     def tekst(self):
         if self._tekst is None:
-            self._tekst = unicode(self._get_data(self.id, "tekst"))
+            self._tekst = str(self._get_data(self.id, "tekst"))
         return self._tekst
+
 
 if __name__ == '__main__':
     pass

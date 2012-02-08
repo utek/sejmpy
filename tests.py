@@ -13,12 +13,12 @@ class TestPosiedzenia(unittest.TestCase):
         from datetime import date
         d = date(2012, 1, 1)
         count = self.p()
-        self.assertEqual(type(self.p.info.tytul), type(u"a"))
-        self.assertEqual(type(self.p.id), type(1))
-        self.assertEqual(type(self.p.info.data_start), type(d))
-        self.assertEqual(type(self.p.info.data_stop), type(d))
-        self.assertEqual(type(self.p.info.ilosc_punktow), type(1))
-        self.assertEqual(type(self.p.info.ilosc_glosowan), type(1))
+        self.assertIsInstance(self.p.info.tytul, unicode)
+        self.assertIsInstance(self.p.id, int)
+        self.assertIsInstance(self.p.info.data_start, date)
+        self.assertIsInstance(self.p.info.data_stop, date)
+        self.assertIsInstance(self.p.info.ilosc_punktow, int)
+        self.assertIsInstance(self.p.info.ilosc_glosowan, int)
         #sprawdzenie czy tylko jedno zapytanie do api
         self.assertEqual(count+1, self.p())
 
