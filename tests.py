@@ -136,7 +136,7 @@ class TestPoslow(unittest.TestCase):
 
     def test_info(self):
         self.assertEqual(self.obj.id, 460)
-        self.assertIsInstance(self.info.data_urodzenia, datetime.date)
+        self.assertIsInstance(self.obj.info.data_urodzenia, datetime.date)
 
 if __name__ == '__main__':
     unittest.main()

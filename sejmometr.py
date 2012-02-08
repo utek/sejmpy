@@ -46,14 +46,27 @@ def get_class(cls):
 
 
 class Common(object):
+    #fix dla latwiejszej konwersji dla py3k
+    str_ = unicode
+    #str_ = str
+
     types = {"data": date,
              "time_start":datetime,
              "time_stop":datetime,
-             "tytul":unicode,
+             "tytul":str_,
              "time":datetime,
-             "nr": unicode,
+             "nr": str_,
              "data_start": date,
              "data_stop": date,
+             "slug":str_,
+             "nazwa":str_,
+             "imie":str_,
+             "nazwisko":str_,
+             "data_urodzenia":date,
+             "miejsce_urodzenia":str_,
+             "nr_okregu":str_,
+             "pkw_liczba_glosow":str_,
+             "pkw_zawod":str_,
              }
     _count = 0
     _info = None
@@ -290,6 +303,19 @@ class Dokument(Common):
             self._tekst = str(self._get_data(self.id, "tekst"))
         return self._tekst
 
+class Posel(Common):
+    _all = "poslowie"
+
+    _glosowania_class = "Glosowanie"
+    _wystapienia_class = "Wystapienie"
+
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+        self._wystapienia = None
+        self._glosowania = None
+        self._komisje = None
+        self._oswiadczenia_majatkowe = None
+        self._rejestr_korzysci = None
 
 if __name__ == '__main__':
     pass
