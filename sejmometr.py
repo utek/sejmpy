@@ -159,6 +159,18 @@ class Glosowanie(Common):
     _all = "glosowania"
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
+        self._wyniki = None #po dopisaniu poslow uwzglednic w metodzie.
+
+    @property
+    def info(self):
+        info_ = super(Glosowanie, self).info
+        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
+        self._info.dzien = Dzien(self._info.dzien_id)
+        self._info.punkt = Punkt(self._info.punkt_id)
+        self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
+        self._info.wystapienie = Wystapienie(self._info.wystapienie_id)
+        return self._info
+
 
 class Dzien(Common):
     _all = "dni"
@@ -173,6 +185,13 @@ class Dzien(Common):
         self._rozpatrywania = None
         self._wystapienia = None
 
+    @property
+    def info(self):
+        info_ = super(Dzien, self).info
+        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
+        self._info.dokument = Dokument(self._info.dokument_id)
+        return self._info
+
 class Rozpatrywanie(Common):
     _all = "rozpatrywania"
 
@@ -183,6 +202,14 @@ class Rozpatrywanie(Common):
         self._id = id
         self._glosowania = None
         self._wystapienia = None
+
+    @property
+    def info(self):
+        info_ = super(Rozpatrywanie, self).info
+        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
+        self._info.dzien = Dzien(self._info.dzien_id)
+        self._info.punkt = Punkt(self._info.punkt_id)
+        return self._info
 
 class Wystapienie(Common):
     _all = "wystapienia"
@@ -196,11 +223,26 @@ class Wystapienie(Common):
             self._tekst = unicode(self._get_data(self.id, "tekst"))
         return self._tekst
 
+    @property
+    def info(self):
+        info_ = super(Wystapienie, self).info
+        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
+        self._info.dzien = Dzien(self._info.dzien_id)
+        self._info.punkt = Punkt(self._info.punkt_id)
+        self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
+        return self._info
+
 class Druk(Common):
     _all = "druki"
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
+
+    @property
+    def info(self):
+        info_ = super(Druk, self).info
+        self._info.dokument = Dokument(self._info.dokument_id)
+        return self._info
 
 class Dokument(Common):
     def __init__(self, id=None, *args, **kwargs):

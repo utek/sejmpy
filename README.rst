@@ -5,7 +5,7 @@ Sejmy.py
 Moduł pythona ułatwiajacy korzystanie z API sejmometr.pl
 (http://sejmometr.pl/api/api)
 
-Przykład użycia
+Struktura
 ===============
 
 Posiedzenia::
@@ -50,5 +50,3 @@ Punkty::
 
     punkt.rozpatrywania - Lista obiektów typu Rozpatrywanie dla danego punktu porządku dziennego
     punkt.druki - Lista obiektów typu Druk związanych z punktem porządku dziennego
-
-

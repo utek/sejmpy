@@ -121,7 +121,6 @@ class TestRozpatrywan(unittest.TestCase):
 class TestWystapien(unittest.TestCase):
     def setUp(self):
         self.wy = Wystapienie(1)
-        print type(self.wy)
 
     def test_info(self):
         self.assertEqual(self.wy.id, 1)
