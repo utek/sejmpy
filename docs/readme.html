@@ -319,6 +319,37 @@ ul.auto-toc {
 
 <p>Moduł pythona ułatwiajacy korzystanie z API sejmometr.pl
 (<a class="reference external" href="http://sejmometr.pl/api/api">http://sejmometr.pl/api/api</a>)</p>
+<div class="section" id="przyklad-uzycia">
+<h1>Przykład użycia</h1>
+<pre class="doctest-block">
+&gt;&gt;&gt; import sejmometr
+&gt;&gt;&gt; lista_posiedzen = sejmometr.Posiedzenie.lista()
+&gt;&gt;&gt; lista_posiedzen
+[&lt;sejmometr.Posiedzenie object at 0x02A41E30&gt;, &lt;sejmometr.Posiedzenie object at 0x02A414D0&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41930&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41E70&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41E90&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41DD0&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41EF0&gt;]
+&gt;&gt;&gt; posiedzenie = lista_posiedzen[-1] #ostatnie posiedzenie
+&gt;&gt;&gt; posiedzenie
+&lt;sejmometr.Posiedzenie object at 0x02A41EF0&gt;
+&gt;&gt;&gt; dir(posiedzenie)
+['__call__', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattr__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__','_all', '_count', '_dni', '_dni_class', '_get_data', '_get_info', '_glosowania', '_glosowania_class', '_id', '_info', '_punkty', '_punkty_class', '_rozpatrywania', '_rozpatrywania_class', '_wystapienia', '_wystapienia_class', 'id', 'info', 'lista', 'nr', 'str_', 'types']
+&gt;&gt;&gt; dir(posiedzenie.info)
+['__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'data_start', 'data_stop','id', 'ilosc_glosowan', 'ilosc_punktow', 'tytul']
+&gt;&gt;&gt; print posiedzenie.info.tytul
+7
+&gt;&gt;&gt; print posiedzenie.info.ilosc_glosowan
+200
+&gt;&gt;&gt; print posiedzenie.info.ilosc_punktow
+2
+&gt;&gt;&gt; print posiedzenie.punkty
+[&lt;sejmometr.Punkt object at 0x02A2C190&gt;, &lt;sejmometr.Punkt object at 0x02A2C0D0&gt;]
+&gt;&gt;&gt; print posiedzenie.punkty[0]
+&lt;sejmometr.Punkt object at 0x029C6BB0&gt;
+&gt;&gt;&gt; punkt = posiedzenie.punkty[0]
+&gt;&gt;&gt; dir(punkt)
+['__call__', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattr__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__','_all', '_count', '_druki', '_druki_class', '_get_data', '_get_info', '_id', '_info', '_rozpatrywania', '_rozpatrywania_class', 'id', 'info', 'lista', 'nr', 'str_', 'types']
+&gt;&gt;&gt; punkt.info.tytul
+u'Sprawozdanie Komisji Finans\xf3w Publicznych o rz\u0105dowym projekcie ustawy bud\u017cetowej na rok 2012 \u2013 trzecie czytanie'
+</pre>
+</div>
 <div class="section" id="struktura">
 <h1>Struktura</h1>
 <div class="section" id="posiedzenia">
