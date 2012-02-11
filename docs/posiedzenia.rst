@@ -4,17 +4,13 @@ Posiedzenie
 
 .. currentmodule:: sejmometr
 
-.. class:: Posiedzenie(id)
+.. autoclass:: Posiedzenie(id)
+    :members: lista
 
     Klasa opisująca Posiedzenia sejmu
-    :param id: Numer id punktu
+    
+    :param id: Numer id posiedzenia
     :type id: int
-
-    :param id: numer id
-
-    .. classmethod:: lista()
-
-        Zwraca listę obiektów typu :class:`Posiedzenie`
 
     .. attribute:: id
 

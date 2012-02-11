@@ -8,6 +8,9 @@ Druk
 
     Klasa opisująca druki sejmowe
 
+    :param id: Numer id druku
+    :type id: int
+
     .. attribute:: nr
 
         Numer druku.

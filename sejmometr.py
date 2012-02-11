@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __version__ = "0.6.5"
 
 import json
@@ -38,6 +39,7 @@ except ImportError:
 
 
 class Info(object):
+    """Klasa pojemnik. Nie implementuje żadnych metod czy atrybutów."""
     pass
 
 
@@ -87,12 +89,14 @@ class Common(object):
 
     @property
     def info(self):
+        """obiekt typu :class:`Info` zawierający informacje o obiekcie"""
         if self._info is None:
             self._get_info()
         return self._info
 
 
     def _get_data(self, id, rest):
+        """Funkcja pobiera dane z API Sejmometru"""
         if id is None:
             return None
         url_dict = {"name": self.__class__.__name__.lower(), "id": id,
@@ -104,6 +108,7 @@ class Common(object):
 
 
     def _get_info(self):
+        """Funkcja zwracająca obiekt typu :class:`Info`"""
         obj = json.loads(self._get_data(self._id, "info"))
         self._info = Info()
         for k,v in list(obj.items()):

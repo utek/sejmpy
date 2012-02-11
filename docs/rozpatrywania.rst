@@ -4,7 +4,13 @@ Rozpatrywanie
 
 .. currentmodule:: sejmometr
 
-.. class:: Rozpatrywanie(id)
+.. autoclass:: Rozpatrywanie(id)
+    :members: lista
+
+    Klasa opisująca rozpatrywania w danym posiedzeniu
+    
+    :param id: Numer id rozpatrywania
+    :type id: int
 
     .. attribute:: info
 

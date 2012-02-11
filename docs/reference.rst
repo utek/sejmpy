@@ -29,10 +29,12 @@ Struktura
 
     Funkcja wykorzystująca :mod:`urllib2` do pobierania danych z Sejmometr API
 
-.. class:: Common
+.. autoclass:: Common
+    :members:
+    :private-members:
 
     Klasa implementująca metody i atrybuty wspólne dla pozostałych klas.
 
-.. classmethod:: lista()
+.. autoclass:: Info
 
-    Zwraca listę obiektów typy klasy, z której została wywołana
+
