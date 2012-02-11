@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Punkt &mdash; sejmpy 0.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="sejmpy 0.6 documentation" href="index.html" />
+    <link rel="up" title="Struktura" href="reference.html" />
+    <link rel="next" title="Dzień" href="dni.html" />
+    <link rel="prev" title="Posiedzenie" href="posiedzenia.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="dni.html" title="Dzień"
+             accesskey="N">dalej</a> |</li>
+        <li class="right" >
+          <a href="posiedzenia.html" title="Posiedzenie"
+             accesskey="P">wstecz</a> |</li>
+        <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li>
+          <li><a href="reference.html" accesskey="U">Struktura</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="punkt">
+<h1>Punkt<a class="headerlink" href="#punkt" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<dl class="class">
+<dt id="sejmometr.Punkt">
+<em class="property">class </em><tt class="descclassname">sejmometr.</tt><tt class="descname">Punkt</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#sejmometr.Punkt" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa opisująca Punkt porządku dziennego dla określonego posiedzenia.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>id</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Numer id punktu</td>
+</tr>
+</tbody>
+</table>
+<dl class="classmethod">
+<dt id="sejmometr.Punkt.lista">
+<em class="property">classmethod </em><tt class="descname">lista</tt><big>(</big><big>)</big><a class="headerlink" href="#sejmometr.Punkt.lista" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Zwraca listę obietków typu <a class="reference internal" href="#sejmometr.Punkt" title="sejmometr.Punkt"><tt class="xref py py-class docutils literal"><span class="pre">Punkt</span></tt></a> dla wszystkich posiedzeń sejmu</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.id">
+<tt class="descname">id</tt><a class="headerlink" href="#sejmometr.Punkt.id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id punktu porządku dziennego.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.info">
+<tt class="descname">info</tt><a class="headerlink" href="#sejmometr.Punkt.info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt zawierający informacje o punkcie porządku dziennego.
+Posiada następujace atrybuty.</p>
+<dl class="attribute">
+<dt id="sejmometr.Punkt.nr">
+<tt class="descname">nr</tt><a class="headerlink" href="#sejmometr.Punkt.nr" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer porządkowy punktu.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.tytul">
+<tt class="descname">tytul</tt><a class="headerlink" href="#sejmometr.Punkt.tytul" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Tytuł punktu.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.posiedzenie_id">
+<tt class="descname">posiedzenie_id</tt><a class="headerlink" href="#sejmometr.Punkt.posiedzenie_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id posiedzenia.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.posiedzenie">
+<tt class="descname">posiedzenie</tt><a class="headerlink" href="#sejmometr.Punkt.posiedzenie" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <a class="reference internal" href="posiedzenia.html#sejmometr.Posiedzenie" title="sejmometr.Posiedzenie"><tt class="xref py py-class docutils literal"><span class="pre">Posiedzenie</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Punkt.posiedzenie_id" title="sejmometr.Punkt.posiedzenie_id"><tt class="xref py py-attr docutils literal"><span class="pre">posiedzenie_id</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.typ_id">
+<tt class="descname">typ_id</tt><a class="headerlink" href="#sejmometr.Punkt.typ_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Typ punktu.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.druk_id">
+<tt class="descname">druk_id</tt><a class="headerlink" href="#sejmometr.Punkt.druk_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id druku, będącego przedmiotem punktu.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.druk">
+<tt class="descname">druk</tt><a class="headerlink" href="#sejmometr.Punkt.druk" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <a class="reference internal" href="druki.html#sejmometr.Druk" title="sejmometr.Druk"><tt class="xref py py-class docutils literal"><span class="pre">Druk</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Punkt.druk_id" title="sejmometr.Punkt.druk_id"><tt class="xref py py-attr docutils literal"><span class="pre">druk_id</span></tt></a>, będący przedmiotem punktu.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.druk_akcja_id">
+<tt class="descname">druk_akcja_id</tt><a class="headerlink" href="#sejmometr.Punkt.druk_akcja_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Typ podjętych akcji dotyczących druku.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.glosowanie_id">
+<tt class="descname">glosowanie_id</tt><a class="headerlink" href="#sejmometr.Punkt.glosowanie_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id głosowania nad drukiem.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.glosowanie">
+<tt class="descname">glosowanie</tt><a class="headerlink" href="#sejmometr.Punkt.glosowanie" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <tt class="xref py py-class docutils literal"><span class="pre">Glosowanie</span></tt> o id = <a class="reference internal" href="#sejmometr.Punkt.glosowanie_id" title="sejmometr.Punkt.glosowanie_id"><tt class="xref py py-attr docutils literal"><span class="pre">glosowanie_id</span></tt></a>, będący
+głosowaniem nad punktem.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.rozpatrywania">
+<tt class="descname">rozpatrywania</tt><a class="headerlink" href="#sejmometr.Punkt.rozpatrywania" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Lista obiektów typu <a class="reference internal" href="rozpatrywania.html#sejmometr.Rozpatrywanie" title="sejmometr.Rozpatrywanie"><tt class="xref py py-class docutils literal"><span class="pre">Rozpatrywanie</span></tt></a> dla danego punktu porządku
+dziennego</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Punkt.druki">
+<tt class="descname">druki</tt><a class="headerlink" href="#sejmometr.Punkt.druki" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Lista obiektów typu <a class="reference internal" href="druki.html#sejmometr.Druk" title="sejmometr.Druk"><tt class="xref py py-class docutils literal"><span class="pre">Druk</span></tt></a> związanych z punktem porządku dziennego</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="posiedzenia.html"
+                        title="poprzedni rozdział">Posiedzenie</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="dni.html"
+                        title="następny rozdział">Dzień</a></p>
+  <h3>Ta strona</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/punkty.txt"
+           rel="nofollow">Pokaż źródło</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="dni.html" title="Dzień"
+             >dalej</a> |</li>
+        <li class="right" >
+          <a href="posiedzenia.html" title="Posiedzenie"
+             >wstecz</a> |</li>
+        <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Struktura</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Łukasz Bołdys.
+      Utworzone przy pomocy <a href="http://sphinx.pocoo.org/">Sphinx</a>'a 1.1.2.
+    </div>
+  </body>
+</html>

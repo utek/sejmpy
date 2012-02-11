@@ -27,8 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="sejmpy 0.6 documentation" href="index.html" />
-    <link rel="next" title="Struktura" href="reference.html" />
-    <link rel="prev" title="Welcome to sejmpy’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Wystąpienie" href="wystapienia.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,10 +37,7 @@
           <a href="genindex.html" title="Indeks ogólny"
              accesskey="I">indeks</a></li>
         <li class="right" >
-          <a href="reference.html" title="Struktura"
-             accesskey="N">dalej</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to sejmpy’s documentation!"
+          <a href="wystapienia.html" title="Wystąpienie"
              accesskey="P">wstecz</a> |</li>
         <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li> 
       </ul>
@@ -54,6 +50,29 @@
             
   <div class="section" id="przyklad-uzycia">
 <h1>Przykład użycia<a class="headerlink" href="#przyklad-uzycia" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<p>Poniższy kod wypisuje wszystkie posiedzenia oraz punkty poszczególnych posiedzeń:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">sejmometr</span>
+
+<span class="n">lista_posiedzen</span> <span class="o">=</span> <span class="n">sejmometr</span><span class="o">.</span><span class="n">Posiedzenie</span><span class="o">.</span><span class="n">lista</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&quot;Ilość posiedzeń:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lista_posiedzen</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">posiedzenie</span> <span class="ow">in</span> <span class="n">lista_posiedzen</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Tytuł: &quot;</span><span class="p">,</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">tytul</span>
+    <span class="k">print</span> <span class="s">&quot;Data rozpoczęcia: &quot;</span><span class="p">,</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">data_start</span>
+    <span class="k">print</span> <span class="s">&quot;Data zakończenia: &quot;</span><span class="p">,</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">data_stop</span>
+    <span class="k">print</span> <span class="s">&quot;Liczba punktów porządku dziennego: &quot;</span><span class="p">,</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">ilosc_punktow</span>
+    <span class="k">print</span> <span class="s">&quot;Liczba głosowań: &quot;</span><span class="p">,</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">ilosc_glosowan</span>
+    <span class="k">print</span> <span class="s">&quot;---&quot;</span>
+    <span class="k">for</span> <span class="n">punkt</span> <span class="ow">in</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">punkty</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Punkt nr: &quot;</span><span class="p">,</span> <span class="n">punkt</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">nr</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Tytuł: &quot;</span><span class="p">,</span> <span class="n">punkt</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">tytul</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">Typ: &quot;</span><span class="p">,</span> <span class="n">punkt</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">typ_id</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">---&quot;</span>
+</pre></div>
+</div>
+<p>Przykładowe użycie biblioteki z lini poleceń:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sejmometr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lista_posiedzen</span> <span class="o">=</span> <span class="n">sejmometr</span><span class="o">.</span><span class="n">Posiedzenie</span><span class="o">.</span><span class="n">lista</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lista_posiedzen</span>
@@ -91,11 +110,8 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Poprzedni temat</h4>
-  <p class="topless"><a href="index.html"
-                        title="poprzedni rozdział">Welcome to sejmpy&#8217;s documentation!</a></p>
-  <h4>Następny temat</h4>
-  <p class="topless"><a href="reference.html"
-                        title="następny rozdział">Struktura</a></p>
+  <p class="topless"><a href="wystapienia.html"
+                        title="poprzedni rozdział">Wystąpienie</a></p>
   <h3>Ta strona</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/example.txt"
@@ -125,10 +141,7 @@
           <a href="genindex.html" title="Indeks ogólny"
              >indeks</a></li>
         <li class="right" >
-          <a href="reference.html" title="Struktura"
-             >dalej</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to sejmpy’s documentation!"
+          <a href="wystapienia.html" title="Wystąpienie"
              >wstecz</a> |</li>
         <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li> 
       </ul>

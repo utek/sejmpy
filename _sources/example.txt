@@ -2,6 +2,14 @@
 Przykład użycia
 =================
 
+Poniższy kod wypisuje wszystkie posiedzenia oraz punkty poszczególnych posiedzeń:
+
+.. literalinclude:: ../example.py
+
+
+Przykładowe użycie biblioteki z lini poleceń:
+
+
 >>> import sejmometr
 >>> lista_posiedzen = sejmometr.Posiedzenie.lista()
 >>> lista_posiedzen
