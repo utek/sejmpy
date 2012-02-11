@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Przykład użycia &mdash; sejmpy 0.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="sejmpy 0.6 documentation" href="index.html" />
+    <link rel="next" title="Struktura" href="reference.html" />
+    <link rel="prev" title="Welcome to sejmpy’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="reference.html" title="Struktura"
+             accesskey="N">dalej</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to sejmpy’s documentation!"
+             accesskey="P">wstecz</a> |</li>
+        <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="przyklad-uzycia">
+<h1>Przykład użycia<a class="headerlink" href="#przyklad-uzycia" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sejmometr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lista_posiedzen</span> <span class="o">=</span> <span class="n">sejmometr</span><span class="o">.</span><span class="n">Posiedzenie</span><span class="o">.</span><span class="n">lista</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lista_posiedzen</span>
+<span class="go">[&lt;sejmometr.Posiedzenie object at 0x02A41E30&gt;, &lt;sejmometr.Posiedzenie object at 0x02A414D0&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41930&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41E70&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41E90&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41DD0&gt;, &lt;sejmometr.Posiedzenie object at 0x02A41EF0&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">posiedzenie</span> <span class="o">=</span> <span class="n">lista_posiedzen</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c">#ostatnie posiedzenie</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">posiedzenie</span>
+<span class="go">&lt;sejmometr.Posiedzenie object at 0x02A41EF0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">posiedzenie</span><span class="p">)</span>
+<span class="go">[&#39;__call__&#39;, &#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__doc__&#39;, &#39;__format__&#39;, &#39;__getattr__&#39;, &#39;__getattribute__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__module__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;,&#39;_all&#39;, &#39;_count&#39;, &#39;_dni&#39;, &#39;_dni_class&#39;, &#39;_get_data&#39;, &#39;_get_info&#39;, &#39;_glosowania&#39;, &#39;_glosowania_class&#39;, &#39;_id&#39;, &#39;_info&#39;, &#39;_punkty&#39;, &#39;_punkty_class&#39;, &#39;_rozpatrywania&#39;, &#39;_rozpatrywania_class&#39;, &#39;_wystapienia&#39;, &#39;_wystapienia_class&#39;, &#39;id&#39;, &#39;info&#39;, &#39;lista&#39;, &#39;nr&#39;, &#39;str_&#39;, &#39;types&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
+<span class="go">[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__doc__&#39;, &#39;__format__&#39;, &#39;__getattribute__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__module__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;data_start&#39;, &#39;data_stop&#39;,&#39;id&#39;, &#39;ilosc_glosowan&#39;, &#39;ilosc_punktow&#39;, &#39;tytul&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">tytul</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">ilosc_glosowan</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">ilosc_punktow</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">punkty</span>
+<span class="go">[&lt;sejmometr.Punkt object at 0x02A2C190&gt;, &lt;sejmometr.Punkt object at 0x02A2C0D0&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">punkty</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;sejmometr.Punkt object at 0x029C6BB0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">punkt</span> <span class="o">=</span> <span class="n">posiedzenie</span><span class="o">.</span><span class="n">punkty</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">punkt</span><span class="p">)</span>
+<span class="go">[&#39;__call__&#39;, &#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__doc__&#39;, &#39;__format__&#39;, &#39;__getattr__&#39;, &#39;__getattribute__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__module__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;,&#39;_all&#39;, &#39;_count&#39;, &#39;_druki&#39;, &#39;_druki_class&#39;, &#39;_get_data&#39;, &#39;_get_info&#39;, &#39;_id&#39;, &#39;_info&#39;, &#39;_rozpatrywania&#39;, &#39;_rozpatrywania_class&#39;, &#39;id&#39;, &#39;info&#39;, &#39;lista&#39;, &#39;nr&#39;, &#39;str_&#39;, &#39;types&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">punkt</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">tytul</span>
+<span class="go">u&#39;Sprawozdanie Komisji Finans\xf3w Publicznych o rz\u0105dowym projekcie ustawy bud\u017cetowej na rok 2012 \u2013 trzecie czytanie&#39;</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="index.html"
+                        title="poprzedni rozdział">Welcome to sejmpy&#8217;s documentation!</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="reference.html"
+                        title="następny rozdział">Struktura</a></p>
+  <h3>Ta strona</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/example.txt"
+           rel="nofollow">Pokaż źródło</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="reference.html" title="Struktura"
+             >dalej</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to sejmpy’s documentation!"
+             >wstecz</a> |</li>
+        <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Łukasz Bołdys.
+      Utworzone przy pomocy <a href="http://sphinx.pocoo.org/">Sphinx</a>'a 1.1.2.
+    </div>
+  </body>
+</html>
