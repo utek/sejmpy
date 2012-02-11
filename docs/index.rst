@@ -11,8 +11,9 @@ Contents:
 .. toctree::
     :maxdepth: 2
 
-    example
+    wstep
     reference
+    example
 
 
 Indices and tables
