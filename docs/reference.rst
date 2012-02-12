@@ -5,12 +5,15 @@ Struktura
 .. toctree::
     :maxdepth: 2
 
-    posiedzenia
-    punkty
-    dni
-    rozpatrywania
-    druki
-    wystapienia
+    reference/posiedzenia
+    reference/punkty
+    reference/dni
+    reference/rozpatrywania
+    reference/druki
+    reference/wystapienia
+    reference/glosowania
+    reference/poslowie
+    reference/dokumenty
 
 .. currentmodule:: sejmometr
 
@@ -36,5 +39,3 @@ Struktura
     Klasa implementująca metody i atrybuty wspólne dla pozostałych klas.
 
 .. autoclass:: Info
-
-
