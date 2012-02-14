@@ -15,7 +15,6 @@ Contents:
     reference
     example
 
-
 Indices and tables
 ==================
 

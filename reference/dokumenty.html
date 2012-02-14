@@ -1,0 +1,162 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dokumenty &mdash; Dokumentacja Sejmpy</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Dokumentacja Sejmpy" href="../index.html" />
+    <link rel="up" title="Struktura" href="../reference.html" />
+    <link rel="next" title="Przykład użycia" href="../example.html" />
+    <link rel="prev" title="Wystąpienie" href="poslowie.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li class="right" >
+          <a href="../example.html" title="Przykład użycia"
+             accesskey="N">dalej</a> |</li>
+        <li class="right" >
+          <a href="poslowie.html" title="Wystąpienie"
+             accesskey="P">wstecz</a> |</li>
+        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li>
+          <li><a href="../reference.html" accesskey="U">Struktura</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dokumenty">
+<h1>Dokumenty<a class="headerlink" href="#dokumenty" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<dl class="class">
+<dt id="sejmometr.Dokument">
+<em class="property">class </em><tt class="descname">Dokument</tt><big>(</big><em>id</em><big>)</big><a class="reference internal" href="../_modules/sejmometr.html#Dokument"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Dokument" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa opisująca dokumenty</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parametry:</th><td class="field-body"><strong>id</strong> (<a class="reference external" href="http://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Numer id druku</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="sejmometr.Dokument.info">
+<tt class="descname">info</tt><a class="headerlink" href="#sejmometr.Dokument.info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Zwraca obiekt typu <a class="reference internal" href="../reference.html#sejmometr.Info" title="sejmometr.Info"><tt class="xref py py-class docutils literal"><span class="pre">Info</span></tt></a> zawierający następujące atrybuty:</p>
+<dl class="attribute">
+<dt id="sejmometr.Dokument.url">
+<tt class="descname">url</tt><a class="headerlink" href="#sejmometr.Dokument.url" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Adres url pliku zawierającego dokument.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Dokument.scribd_id">
+<tt class="descname">scribd_id</tt><a class="headerlink" href="#sejmometr.Dokument.scribd_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id dokumentu w <a class="reference external" href="http://scribd.com">http://scribd.com</a>
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Dokument.scribd_access_key">
+<tt class="descname">scribd_access_key</tt><a class="headerlink" href="#sejmometr.Dokument.scribd_access_key" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klucz dostępu do dokumentu w <a class="reference external" href="http://scribd.com">http://scribd.com</a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Dokument.tekst">
+<tt class="descname">tekst</tt><a class="reference internal" href="../_modules/sejmometr.html#Dokument.tekst"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Dokument.tekst" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Treść dokumentu.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="poslowie.html"
+                        title="poprzedni rozdział">Wystąpienie</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="../example.html"
+                        title="następny rozdział">Przykład użycia</a></p>
+  <h3>Ta strona</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/reference/dokumenty.txt"
+           rel="nofollow">Pokaż źródło</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li class="right" >
+          <a href="../example.html" title="Przykład użycia"
+             >dalej</a> |</li>
+        <li class="right" >
+          <a href="poslowie.html" title="Wystąpienie"
+             >wstecz</a> |</li>
+        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li>
+          <li><a href="../reference.html" >Struktura</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Łukasz Bołdys.
+      Utworzone przy pomocy <a href="http://sphinx.pocoo.org/">Sphinx</a>'a 1.1.2.
+    </div>
+  </body>
+</html>

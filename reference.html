@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,9 +7,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Struktura &mdash; sejmpy 0.6 documentation</title>
+    <title>Struktura &mdash; Dokumentacja Sejmpy</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -26,9 +25,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
-    <link rel="top" title="sejmpy 0.6 documentation" href="index.html" />
-    <link rel="next" title="Posiedzenie" href="posiedzenia.html" />
-    <link rel="prev" title="Przykład użycia" href="example.html" /> 
+    <link rel="top" title="Dokumentacja Sejmpy" href="index.html" />
+    <link rel="next" title="Posiedzenie" href="reference/posiedzenia.html" />
+    <link rel="prev" title="Sejmpy" href="intro.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,12 +37,12 @@
           <a href="genindex.html" title="Indeks ogólny"
              accesskey="I">indeks</a></li>
         <li class="right" >
-          <a href="posiedzenia.html" title="Posiedzenie"
+          <a href="reference/posiedzenia.html" title="Posiedzenie"
              accesskey="N">dalej</a> |</li>
         <li class="right" >
-          <a href="example.html" title="Przykład użycia"
+          <a href="intro.html" title="Sejmpy"
              accesskey="P">wstecz</a> |</li>
-        <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Dokumentacja Sejmpy</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -56,17 +55,20 @@
 <h1>Struktura<a class="headerlink" href="#struktura" title="Stały odnośnik do tego nagłówka">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="posiedzenia.html">Posiedzenie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="punkty.html">Punkt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dni.html">Dzień</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rozpatrywania.html">Rozpatrywanie</a></li>
-<li class="toctree-l1"><a class="reference internal" href="druki.html">Druk</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wystapienia.html">Wystąpienie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/posiedzenia.html">Posiedzenie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/punkty.html">Punkt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/dni.html">Dzień</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/rozpatrywania.html">Rozpatrywanie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/druki.html">Druk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/wystapienia.html">Wystąpienie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/glosowania.html">Głosowanie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/poslowie.html">Poseł</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/dokumenty.html">Dokumenty</a></li>
 </ul>
 </div>
 <dl class="function">
 <dt id="sejmometr.get_data">
-<tt class="descclassname">sejmometr.</tt><tt class="descname">get_data</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#sejmometr.get_data" title="Stały odnośnik do tej definicji">¶</a></dt>
+<tt class="descname">get_data</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#sejmometr.get_data" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Funkcja pobierająca dane z Sejmometr API. Jeżeli w systemie zainstalowana
 jest biblioteka <cite>httplib2</cite> funkcja ta jest równa <a class="reference internal" href="#sejmometr.get_data_httplib2" title="sejmometr.get_data_httplib2"><tt class="xref py py-func docutils literal"><span class="pre">get_data_httplib2()</span></tt></a>,
 jeżeli <cite>httplib2</cite> jest niedostępne to funkcja jest równa
@@ -75,26 +77,56 @@ jeżeli <cite>httplib2</cite> jest niedostępne to funkcja jest równa
 
 <dl class="function">
 <dt id="sejmometr.get_data_httplib2">
-<tt class="descclassname">sejmometr.</tt><tt class="descname">get_data_httplib2</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#sejmometr.get_data_httplib2" title="Stały odnośnik do tej definicji">¶</a></dt>
+<tt class="descname">get_data_httplib2</tt><big>(</big><em>url</em><big>)</big><a class="reference internal" href="_modules/sejmometr.html#get_data_httplib2"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.get_data_httplib2" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Funkcja wykorzystująca <tt class="xref py py-mod docutils literal"><span class="pre">httplib2</span></tt> do pobierania danych z Sejmometr API</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="sejmometr.get_data_urllib2">
-<tt class="descclassname">sejmometr.</tt><tt class="descname">get_data_urllib2</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#sejmometr.get_data_urllib2" title="Stały odnośnik do tej definicji">¶</a></dt>
+<tt class="descname">get_data_urllib2</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#sejmometr.get_data_urllib2" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Funkcja wykorzystująca <a class="reference external" href="http://docs.python.org/2.7/library/urllib2.html#urllib2" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">urllib2</span></tt></a> do pobierania danych z Sejmometr API</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="sejmometr.Common">
-<em class="property">class </em><tt class="descclassname">sejmometr.</tt><tt class="descname">Common</tt><a class="headerlink" href="#sejmometr.Common" title="Stały odnośnik do tej definicji">¶</a></dt>
+<em class="property">class </em><tt class="descname">Common</tt><a class="reference internal" href="_modules/sejmometr.html#Common"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Common" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Klasa implementująca metody i atrybuty wspólne dla pozostałych klas.</p>
+<dl class="method">
+<dt id="sejmometr.Common._get_data">
+<tt class="descname">_get_data</tt><big>(</big><em>id</em>, <em>rest</em><big>)</big><a class="reference internal" href="_modules/sejmometr.html#Common._get_data"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Common._get_data" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja pobiera dane z API Sejmometru</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sejmometr.Common._get_info">
+<tt class="descname">_get_info</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sejmometr.html#Common._get_info"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Common._get_info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja zwracająca obiekt typu <a class="reference internal" href="#sejmometr.Info" title="sejmometr.Info"><tt class="xref py py-class docutils literal"><span class="pre">Info</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Common.info">
+<tt class="descname">info</tt><a class="reference internal" href="_modules/sejmometr.html#Common.info"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Common.info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>obiekt typu <a class="reference internal" href="#sejmometr.Info" title="sejmometr.Info"><tt class="xref py py-class docutils literal"><span class="pre">Info</span></tt></a> zawierający informacje o obiekcie</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="sejmometr.lista">
-<em class="property">classmethod </em><tt class="descclassname">sejmometr.</tt><tt class="descname">lista</tt><big>(</big><big>)</big><a class="headerlink" href="#sejmometr.lista" title="Stały odnośnik do tej definicji">¶</a></dt>
-<dd><p>Zwraca listę obiektów typy klasy, z której została wywołana</p>
+<dt id="sejmometr.Common.lista">
+<em class="property">classmethod </em><tt class="descname">lista</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/sejmometr.html#Common.lista"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Common.lista" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Zwraca liste obiektow</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Common.str_">
+<tt class="descname">str_</tt><a class="headerlink" href="#sejmometr.Common.str_" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>alias klasy <tt class="xref py py-class docutils literal"><span class="pre">unicode</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sejmometr.Info">
+<em class="property">class </em><tt class="descname">Info</tt><a class="reference internal" href="_modules/sejmometr.html#Info"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa pojemnik. Nie implementuje żadnych metod czy atrybutów.</p>
 </dd></dl>
 
 </div>
@@ -106,10 +138,10 @@ jeżeli <cite>httplib2</cite> jest niedostępne to funkcja jest równa
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Poprzedni temat</h4>
-  <p class="topless"><a href="example.html"
-                        title="poprzedni rozdział">Przykład użycia</a></p>
+  <p class="topless"><a href="intro.html"
+                        title="poprzedni rozdział">Sejmpy</a></p>
   <h4>Następny temat</h4>
-  <p class="topless"><a href="posiedzenia.html"
+  <p class="topless"><a href="reference/posiedzenia.html"
                         title="następny rozdział">Posiedzenie</a></p>
   <h3>Ta strona</h3>
   <ul class="this-page-menu">
@@ -140,12 +172,12 @@ jeżeli <cite>httplib2</cite> jest niedostępne to funkcja jest równa
           <a href="genindex.html" title="Indeks ogólny"
              >indeks</a></li>
         <li class="right" >
-          <a href="posiedzenia.html" title="Posiedzenie"
+          <a href="reference/posiedzenia.html" title="Posiedzenie"
              >dalej</a> |</li>
         <li class="right" >
-          <a href="example.html" title="Przykład użycia"
+          <a href="intro.html" title="Sejmpy"
              >wstecz</a> |</li>
-        <li><a href="index.html">sejmpy 0.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Dokumentacja Sejmpy</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

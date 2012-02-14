@@ -5,12 +5,15 @@ Struktura
 .. toctree::
     :maxdepth: 2
 
-    posiedzenia
-    punkty
-    dni
-    rozpatrywania
-    druki
-    wystapienia
+    reference/posiedzenia
+    reference/punkty
+    reference/dni
+    reference/rozpatrywania
+    reference/druki
+    reference/wystapienia
+    reference/glosowania
+    reference/poslowie
+    reference/dokumenty
 
 .. currentmodule:: sejmometr
 
@@ -29,10 +32,10 @@ Struktura
 
     Funkcja wykorzystująca :mod:`urllib2` do pobierania danych z Sejmometr API
 
-.. class:: Common
+.. autoclass:: Common
+    :members:
+    :private-members:
 
     Klasa implementująca metody i atrybuty wspólne dla pozostałych klas.
 
-.. classmethod:: lista()
-
-    Zwraca listę obiektów typy klasy, z której została wywołana
+.. autoclass:: Info

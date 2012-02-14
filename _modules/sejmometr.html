@@ -1,0 +1,435 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sejmometr &mdash; Dokumentacja Sejmpy</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Dokumentacja Sejmpy" href="../index.html" />
+    <link rel="up" title="Kod modułu" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Indeks ogólny"
+             accesskey="I">indeks</a></li>
+        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Kod modułu</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Kod źródłowy modułu sejmometr</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">&quot;0.6.5&quot;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">date</span>
+
+
+
+<div class="viewcode-block" id="get_data_httplib2"><a class="viewcode-back" href="../reference.html#sejmometr.get_data_httplib2">[dokumenty]</a><span class="k">def</span> <span class="nf">get_data_httplib2</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">user_agent</span> <span class="o">=</span> <span class="s">&quot;sejmpy/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">__version__</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;User-Agent&quot;</span><span class="p">:</span><span class="n">user_agent</span><span class="p">}</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
+</div>
+<span class="k">def</span> <span class="nf">get_data_urllib</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">user_agent</span> <span class="o">=</span> <span class="s">&quot;sejmpy/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">__version__</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;User-Agent&quot;</span><span class="p">:</span><span class="n">user_agent</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">httplib2</span>
+    <span class="n">http</span> <span class="o">=</span> <span class="n">httplib2</span><span class="o">.</span><span class="n">Http</span><span class="p">(</span><span class="s">&quot;.sejmometr_cache&quot;</span><span class="p">)</span>
+    <span class="n">get_data</span> <span class="o">=</span> <span class="n">get_data_httplib2</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span>
+    <span class="n">get_data</span> <span class="o">=</span> <span class="n">get_data_urllib</span>
+
+
+<div class="viewcode-block" id="Info"><a class="viewcode-back" href="../reference.html#sejmometr.Info">[dokumenty]</a><span class="k">class</span> <span class="nc">Info</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Klasa pojemnik. Nie implementuje żadnych metod czy atrybutów.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+</div>
+<span class="k">def</span> <span class="nf">get_class</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">__name__</span><span class="p">],</span> <span class="n">cls</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Common"><a class="viewcode-back" href="../reference.html#sejmometr.Common">[dokumenty]</a><span class="k">class</span> <span class="nc">Common</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c">#fix dla latwiejszej konwersji dla py3k</span>
+    <span class="n">str_</span> <span class="o">=</span> <span class="nb">unicode</span>
+    <span class="c">#str_ = str</span>
+
+    <span class="n">types</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;data&quot;</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span>
+             <span class="s">&quot;time_start&quot;</span><span class="p">:</span><span class="n">datetime</span><span class="p">,</span>
+             <span class="s">&quot;time_stop&quot;</span><span class="p">:</span><span class="n">datetime</span><span class="p">,</span>
+             <span class="s">&quot;tytul&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;time&quot;</span><span class="p">:</span><span class="n">datetime</span><span class="p">,</span>
+             <span class="s">&quot;nr&quot;</span><span class="p">:</span> <span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;data_start&quot;</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span>
+             <span class="s">&quot;data_stop&quot;</span><span class="p">:</span> <span class="n">date</span><span class="p">,</span>
+             <span class="s">&quot;slug&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;nazwa&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;imie&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;nazwisko&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;data_urodzenia&quot;</span><span class="p">:</span><span class="n">date</span><span class="p">,</span>
+             <span class="s">&quot;miejsce_urodzenia&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;nr_okregu&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;pkw_liczba_glosow&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="s">&quot;pkw_zawod&quot;</span><span class="p">:</span><span class="n">str_</span><span class="p">,</span>
+             <span class="p">}</span>
+    <span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_info</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;common&quot;</span>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Common.lista"><a class="viewcode-back" href="../reference.html#sejmometr.Common.lista">[dokumenty]</a>    <span class="k">def</span> <span class="nf">lista</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="s">&quot;Zwraca liste obiektow&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://api.sejmometr.pl/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">_all</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">tab</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="n">tab</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cls</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">tab</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Common.info"><a class="viewcode-back" href="../reference.html#sejmometr.Common.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;obiekt typu :class:`Info` zawierający informacje o obiekcie&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+
+</div>
+<div class="viewcode-block" id="Common._get_data"><a class="viewcode-back" href="../reference.html#sejmometr.Common._get_data">[dokumenty]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">rest</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Funkcja pobiera dane z API Sejmometru&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="n">url_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+                    <span class="s">&quot;rest&quot;</span><span class="p">:</span> <span class="n">rest</span><span class="p">}</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://api.sejmometr.pl/{name}/{id}/{rest}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">url_dict</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+</div>
+<div class="viewcode-block" id="Common._get_info"><a class="viewcode-back" href="../reference.html#sejmometr.Common._get_info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">_get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Funkcja zwracająca obiekt typu :class:`Info`&quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="s">&quot;info&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="o">=</span> <span class="n">Info</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">:</span>
+                <span class="n">_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_type</span> <span class="o">=</span> <span class="nb">int</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">_type</span> <span class="ow">is</span> <span class="n">datetime</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">_type</span> <span class="ow">is</span> <span class="n">date</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s">&quot;0000-00-00&quot;</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">val</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">_type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">k</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="nb">id</span>
+
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span>
+
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s">&#39;class&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_class&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span>
+                                 <span class="s">&quot; does not exist&quot;</span><span class="p">)</span>
+        <span class="n">_lookup</span> <span class="o">=</span> <span class="s">&quot;_{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">_class_name</span> <span class="o">=</span> <span class="s">&quot;{}_class&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_lookup</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_class_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
+        <span class="n">cls_</span> <span class="o">=</span> <span class="n">get_class</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="n">_lookup</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">val</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="n">tab</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="n">tab</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cls_</span><span class="p">(</span><span class="n">elem</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">tab</span>
+
+</div>
+<div class="viewcode-block" id="Posiedzenie"><a class="viewcode-back" href="../reference/posiedzenia.html#sejmometr.Posiedzenie">[dokumenty]</a><span class="k">class</span> <span class="nc">Posiedzenie</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;posiedzenia&quot;</span>
+    <span class="n">_punkty_class</span> <span class="o">=</span> <span class="s">&quot;Punkt&quot;</span>
+    <span class="n">_glosowania_class</span> <span class="o">=</span> <span class="s">&quot;Glosowanie&quot;</span>
+    <span class="n">_dni_class</span> <span class="o">=</span> <span class="s">&quot;Dzien&quot;</span>
+    <span class="n">_wystapienia_class</span> <span class="o">=</span> <span class="s">&quot;Wystapienie&quot;</span>
+    <span class="n">_rozpatrywania_class</span> <span class="o">=</span> <span class="s">&quot;Rozpatrywanie&quot;</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_punkty</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glosowania</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dni</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wystapienia</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rozpatrywania</span> <span class="o">=</span> <span class="bp">None</span>
+
+</div>
+<div class="viewcode-block" id="Punkt"><a class="viewcode-back" href="../reference/punkty.html#sejmometr.Punkt">[dokumenty]</a><span class="k">class</span> <span class="nc">Punkt</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;punkty&quot;</span>
+    <span class="n">_rozpatrywania_class</span> <span class="o">=</span> <span class="s">&quot;Rozpatrywanie&quot;</span>
+    <span class="n">_druki_class</span> <span class="o">=</span> <span class="s">&quot;Druk&quot;</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rozpatrywania</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_druki</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Punkt.info"><a class="viewcode-back" href="../reference/punkty.html#sejmometr.Punkt.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Punkt</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie</span> <span class="o">=</span> <span class="n">Posiedzenie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">glosowanie</span> <span class="o">=</span> <span class="n">Glosowanie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">glosowanie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">druk</span> <span class="o">=</span> <span class="n">Druk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">druk_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+
+</div></div>
+<div class="viewcode-block" id="Glosowanie"><a class="viewcode-back" href="../reference/glosowania.html#sejmometr.Glosowanie">[dokumenty]</a><span class="k">class</span> <span class="nc">Glosowanie</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;glosowania&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wyniki</span> <span class="o">=</span> <span class="bp">None</span> <span class="c">#po dopisaniu poslow uwzglednic w metodzie.</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Glosowanie.info"><a class="viewcode-back" href="../reference/glosowania.html#sejmometr.Glosowanie.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Glosowanie</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie</span> <span class="o">=</span> <span class="n">Posiedzenie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dzien</span> <span class="o">=</span> <span class="n">Dzien</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dzien_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">punkt</span> <span class="o">=</span> <span class="n">Punkt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">punkt_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">rozpatrywanie</span> <span class="o">=</span> <span class="n">Rozpatrywanie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">rozpatrywanie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">wystapienie</span> <span class="o">=</span> <span class="n">Wystapienie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">wystapienie_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+</div></div>
+<div class="viewcode-block" id="Dzien"><a class="viewcode-back" href="../reference/dni.html#sejmometr.Dzien">[dokumenty]</a><span class="k">class</span> <span class="nc">Dzien</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;dni&quot;</span>
+
+    <span class="n">_glosowania_class</span> <span class="o">=</span> <span class="s">&quot;Glosowanie&quot;</span>
+    <span class="n">_wystapienia_class</span> <span class="o">=</span> <span class="s">&quot;Wystapienie&quot;</span>
+    <span class="n">_rozpatrywania_class</span> <span class="o">=</span> <span class="s">&quot;Rozpatrywanie&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glosowania</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rozpatrywania</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wystapienia</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Dzien.info"><a class="viewcode-back" href="../reference/dni.html#sejmometr.Dzien.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Dzien</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie</span> <span class="o">=</span> <span class="n">Posiedzenie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dokument</span> <span class="o">=</span> <span class="n">Dokument</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dokument_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+</div></div>
+<div class="viewcode-block" id="Rozpatrywanie"><a class="viewcode-back" href="../reference/rozpatrywania.html#sejmometr.Rozpatrywanie">[dokumenty]</a><span class="k">class</span> <span class="nc">Rozpatrywanie</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;rozpatrywania&quot;</span>
+
+    <span class="n">_glosowania_class</span> <span class="o">=</span> <span class="s">&quot;Glosowanie&quot;</span>
+    <span class="n">_wystapienia_class</span> <span class="o">=</span> <span class="s">&quot;Wystapienie&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glosowania</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wystapienia</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Rozpatrywanie.info"><a class="viewcode-back" href="../reference/rozpatrywania.html#sejmometr.Rozpatrywanie.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Rozpatrywanie</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie</span> <span class="o">=</span> <span class="n">Posiedzenie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dzien</span> <span class="o">=</span> <span class="n">Dzien</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dzien_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">punkt</span> <span class="o">=</span> <span class="n">Punkt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">punkt_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+
+</div></div>
+<div class="viewcode-block" id="Wystapienie"><a class="viewcode-back" href="../reference/wystapienia.html#sejmometr.Wystapienie">[dokumenty]</a><span class="k">class</span> <span class="nc">Wystapienie</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;wystapienia&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Wystapienie.tekst"><a class="viewcode-back" href="../reference/wystapienia.html#sejmometr.Wystapienie.tekst">[dokumenty]</a>    <span class="k">def</span> <span class="nf">tekst</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;tekst&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Wystapienie.info"><a class="viewcode-back" href="../reference/wystapienia.html#sejmometr.Wystapienie.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Wystapienie</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie</span> <span class="o">=</span> <span class="n">Posiedzenie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">posiedzenie_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dzien</span> <span class="o">=</span> <span class="n">Dzien</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dzien_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">punkt</span> <span class="o">=</span> <span class="n">Punkt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">punkt_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">rozpatrywanie</span> <span class="o">=</span> <span class="n">Rozpatrywanie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">rozpatrywanie_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+
+</div></div>
+<div class="viewcode-block" id="Druk"><a class="viewcode-back" href="../reference/druki.html#sejmometr.Druk">[dokumenty]</a><span class="k">class</span> <span class="nc">Druk</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;druki&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Druk</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dokument</span> <span class="o">=</span> <span class="n">Dokument</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">dokument_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+</div>
+<div class="viewcode-block" id="Dokument"><a class="viewcode-back" href="../reference/dokumenty.html#sejmometr.Dokument">[dokumenty]</a><span class="k">class</span> <span class="nc">Dokument</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Dokument.tekst"><a class="viewcode-back" href="../reference/dokumenty.html#sejmometr.Dokument.tekst">[dokumenty]</a>    <span class="k">def</span> <span class="nf">tekst</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;tekst&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tekst</span>
+</div></div>
+<div class="viewcode-block" id="Posel"><a class="viewcode-back" href="../reference/poslowie.html#sejmometr.Posel">[dokumenty]</a><span class="k">class</span> <span class="nc">Posel</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;poslowie&quot;</span>
+
+    <span class="n">_glosowania_class</span> <span class="o">=</span> <span class="s">&quot;Glosowanie&quot;</span>
+    <span class="n">_wystapienia_class</span> <span class="o">=</span> <span class="s">&quot;Wystapienie&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wystapienia</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glosowania</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oswiadczenia_majatkowe</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rejestr_korzysci</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;rejestr_korzysci&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oswiadczenia_majatkowe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oswiadczenia_majatkowe</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_oswiadczenia_majatkowe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;oswiadczenia_majatkowe&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oswiadczenia_majatkowe</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">komisje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;komisje&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Szybkie wyszukiwanie</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Szukaj" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Wprowadź szukany termin lub nazwę modułu, klasy lub funkcji.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Nawigacja</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Indeks ogólny"
+             >indeks</a></li>
+        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li>
+          <li><a href="index.html" >Kod modułu</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Łukasz Bołdys.
+      Utworzone przy pomocy <a href="http://sphinx.pocoo.org/">Sphinx</a>'a 1.1.2.
+    </div>
+  </body>
+</html>
