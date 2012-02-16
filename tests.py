@@ -138,5 +138,19 @@ class TestPoslow(unittest.TestCase):
         self.assertEqual(self.obj.id, 460)
         self.assertIsInstance(self.obj.info.data_urodzenia, datetime.date)
 
+class TestKlubow(unittest.TestCase):
+    def setUp(self):
+        self.obj = Klub(1)
+
+    def test_lista(self):
+        self.assertNotEqual(Klub.lista(), None)
+
+    def test_info(self):
+        self.assertEqual(self.obj.id, 1)
+        self.assertEqual(self.obj.info.id, 1)
+        self.assertEqual(self.obj.info.skrot, "PO")
+        self.assertIsInstance(self.obj.info.nazwa, unicode)
+
+
 if __name__ == '__main__':
     unittest.main()

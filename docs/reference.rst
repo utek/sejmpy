@@ -14,6 +14,7 @@ Struktura
     reference/glosowania
     reference/poslowie
     reference/dokumenty
+    reference/kluby
 
 .. currentmodule:: sejmometr
 

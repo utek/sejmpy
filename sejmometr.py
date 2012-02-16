@@ -69,6 +69,7 @@ class Common(object):
              "nr_okregu":str_,
              "pkw_liczba_glosow":str_,
              "pkw_zawod":str_,
+             "skrot": str_,
              }
     _count = 0
     _info = None
@@ -349,7 +350,7 @@ class Posel(Common):
             self._komisje = self._get_data(self.id, "komisje")
         return self._komisje
 
-class Klub(common):
+class Klub(Common):
     """Klasa opisująca kluby parlamentarne"""
 
     _all = "kluby"
