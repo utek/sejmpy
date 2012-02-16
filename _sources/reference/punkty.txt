@@ -23,7 +23,7 @@ Punkt
     .. attribute:: info
 
         Obiekt zawierający informacje o punkcie porządku dziennego.
-        Posiada następujace atrybuty.
+        Posiada następujace atrybuty:
 
         .. attribute:: nr
 

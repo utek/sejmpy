@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/translations.js"></script>
     <link rel="top" title="Dokumentacja Sejmpy" href="../index.html" />
     <link rel="up" title="Struktura" href="../reference.html" />
-    <link rel="next" title="Wystąpienie" href="poslowie.html" />
+    <link rel="next" title="Poseł" href="poslowie.html" />
     <link rel="prev" title="Wystąpienie" href="wystapienia.html" /> 
   </head>
   <body>
@@ -38,7 +38,7 @@
           <a href="../genindex.html" title="Indeks ogólny"
              accesskey="I">indeks</a></li>
         <li class="right" >
-          <a href="poslowie.html" title="Wystąpienie"
+          <a href="poslowie.html" title="Poseł"
              accesskey="N">dalej</a> |</li>
         <li class="right" >
           <a href="wystapienia.html" title="Wystąpienie"
@@ -123,6 +123,106 @@
 <dd><p>Obiekt typu <a class="reference internal" href="rozpatrywania.html#sejmometr.Rozpatrywanie" title="sejmometr.Rozpatrywanie"><tt class="xref py py-class docutils literal"><span class="pre">Rozpatrywanie</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Glosowanie.rozpatrywanie_id" title="sejmometr.Glosowanie.rozpatrywanie_id"><tt class="xref py py-attr docutils literal"><span class="pre">rozpatrywanie_id</span></tt></a></p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.tytul">
+<tt class="descname">tytul</tt><a class="headerlink" href="#sejmometr.Glosowanie.tytul" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Tytuł głosowania. &lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.nr">
+<tt class="descname">nr</tt><a class="headerlink" href="#sejmometr.Glosowanie.nr" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer głosowania. &lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.wystapienie_id">
+<tt class="descname">wystapienie_id</tt><a class="headerlink" href="#sejmometr.Glosowanie.wystapienie_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id wystąpienia powiązanego z głosowaniem. &lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.wystapienie">
+<tt class="descname">wystapienie</tt><a class="headerlink" href="#sejmometr.Glosowanie.wystapienie" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <a class="reference internal" href="wystapienia.html#sejmometr.Wystapienie" title="sejmometr.Wystapienie"><tt class="xref py py-class docutils literal"><span class="pre">Wystapienie</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Glosowanie.wystapienie_id" title="sejmometr.Glosowanie.wystapienie_id"><tt class="xref py py-attr docutils literal"><span class="pre">wystapienie_id</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.time">
+<tt class="descname">time</tt><a class="headerlink" href="#sejmometr.Glosowanie.time" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Czas głosowania. &lt;<tt class="docutils literal"><span class="pre">datetime</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.wynik">
+<tt class="descname">wynik</tt><a class="headerlink" href="#sejmometr.Glosowanie.wynik" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Wynik głosowania. &lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">1:</th><td class="field-body">Za</td>
+</tr>
+<tr class="field-even field"><th class="field-name">2:</th><td class="field-body">Przeciw</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">3:</th><td class="field-body">Kworum</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.l">
+<tt class="descname">l</tt><a class="headerlink" href="#sejmometr.Glosowanie.l" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba posłów uprawnionych do wzięcia udziału w głosowaniu.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.g">
+<tt class="descname">g</tt><a class="headerlink" href="#sejmometr.Glosowanie.g" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba posłów, którzy wzieli udział w głosowaniu.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.wb">
+<tt class="descname">wb</tt><a class="headerlink" href="#sejmometr.Glosowanie.wb" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Wielkość bezwzględna
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.z">
+<tt class="descname">z</tt><a class="headerlink" href="#sejmometr.Glosowanie.z" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba głosów &#8220;Za&#8221;
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.p">
+<tt class="descname">p</tt><a class="headerlink" href="#sejmometr.Glosowanie.p" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba głosów &#8220;Przeciw&#8221;
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.w">
+<tt class="descname">w</tt><a class="headerlink" href="#sejmometr.Glosowanie.w" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba &#8220;Wstrzymań od głosu&#8221;
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Glosowanie.n">
+<tt class="descname">n</tt><a class="headerlink" href="#sejmometr.Glosowanie.n" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba posłów, którzy nie głosowali
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="attribute">
@@ -169,7 +269,7 @@
                         title="poprzedni rozdział">Wystąpienie</a></p>
   <h4>Następny temat</h4>
   <p class="topless"><a href="poslowie.html"
-                        title="następny rozdział">Wystąpienie</a></p>
+                        title="następny rozdział">Poseł</a></p>
   <h3>Ta strona</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/reference/glosowania.txt"
@@ -199,7 +299,7 @@
           <a href="../genindex.html" title="Indeks ogólny"
              >indeks</a></li>
         <li class="right" >
-          <a href="poslowie.html" title="Wystąpienie"
+          <a href="poslowie.html" title="Poseł"
              >dalej</a> |</li>
         <li class="right" >
           <a href="wystapienia.html" title="Wystąpienie"

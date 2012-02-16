@@ -374,11 +374,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rejestr_korzysci</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Posel.info"><a class="viewcode-back" href="../reference/poslowie.html#sejmometr.Posel.info">[dokumenty]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Posel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">klub</span> <span class="o">=</span> <span class="n">Klub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="o">.</span><span class="n">klub_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Posel.rejestr_korzysci"><a class="viewcode-back" href="../reference/poslowie.html#sejmometr.Posel.rejestr_korzysci">[dokumenty]</a>    <span class="k">def</span> <span class="nf">rejestr_korzysci</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;rejestr_korzysci&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rejestr_korzysci</span>
-
+</div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">oswiadczenia_majatkowe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oswiadczenia_majatkowe</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
@@ -386,10 +392,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oswiadczenia_majatkowe</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">komisje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Posel.komisje"><a class="viewcode-back" href="../reference/poslowie.html#sejmometr.Posel.komisje">[dokumenty]</a>    <span class="k">def</span> <span class="nf">komisje</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s">&quot;komisje&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_komisje</span>
+</div></div>
+<div class="viewcode-block" id="Klub"><a class="viewcode-back" href="../reference/kluby.html#sejmometr.Klub">[dokumenty]</a><span class="k">class</span> <span class="nc">Klub</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Klasa opisująca kluby parlamentarne&quot;&quot;&quot;</span>
+
+    <span class="n">_all</span> <span class="o">=</span> <span class="s">&quot;kluby&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="nb">id</span>
+
 </div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">pass</span>

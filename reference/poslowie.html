@@ -59,6 +59,134 @@
 <dt id="sejmometr.Posel">
 <em class="property">class </em><tt class="descname">Posel</tt><big>(</big><em>id</em><big>)</big><a class="reference internal" href="../_modules/sejmometr.html#Posel"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Posel" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Klasa opisująca posła.</p>
+<dl class="attribute">
+<dt id="sejmometr.Posel.info">
+<tt class="descname">info</tt><a class="reference internal" href="../_modules/sejmometr.html#Posel.info"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Posel.info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="attribute">
+<dt>
+<tt class="descname">info</tt><a class="reference internal" href="../_modules/sejmometr.html#Posel.info"><span class="viewcode-link">[źródło]</span></a></dt>
+<dd></dd></dl>
+
+<p>Obiekt zawierający informacje o pośle</p>
+<blockquote>
+<div><dl class="attribute">
+<dt id="sejmometr.Posel.slug">
+<tt class="descname">slug</tt><a class="headerlink" href="#sejmometr.Posel.slug" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Fraza używana przez Sejmometr do generowania adresów
+stron profilowych posłów.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.nazwa">
+<tt class="descname">nazwa</tt><a class="headerlink" href="#sejmometr.Posel.nazwa" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Imię i nazwisko posła.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.imie">
+<tt class="descname">imie</tt><a class="headerlink" href="#sejmometr.Posel.imie" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Imię posła.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.nazwisko">
+<tt class="descname">nazwisko</tt><a class="headerlink" href="#sejmometr.Posel.nazwisko" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Nazwisko posła.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.data_urodzenia">
+<tt class="descname">data_urodzenia</tt><a class="headerlink" href="#sejmometr.Posel.data_urodzenia" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Data urodzenia posła.
+&lt;<tt class="docutils literal"><span class="pre">date</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.miejsce_urodzenia">
+<tt class="descname">miejsce_urodzenia</tt><a class="headerlink" href="#sejmometr.Posel.miejsce_urodzenia" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Miejsce urodzenia posła.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.klub_id">
+<tt class="descname">klub_id</tt><a class="headerlink" href="#sejmometr.Posel.klub_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Identyfikator klubu parlamentarnego, do którego należy poseł
+w danej chwili.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.klub">
+<tt class="descname">klub</tt><a class="headerlink" href="#sejmometr.Posel.klub" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <a class="reference internal" href="kluby.html#sejmometr.Klub" title="sejmometr.Klub"><tt class="xref py py-class docutils literal"><span class="pre">Klub</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Posel.klub_id" title="sejmometr.Posel.klub_id"><tt class="xref py py-attr docutils literal"><span class="pre">klub_id</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.pkw_nr_okregu">
+<tt class="descname">pkw_nr_okregu</tt><a class="headerlink" href="#sejmometr.Posel.pkw_nr_okregu" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer okręgu (w nomenklaturze PKW), z którego poseł dostał się
+do Sejmu.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.pkw_liczba_glosow">
+<tt class="descname">pkw_liczba_glosow</tt><a class="headerlink" href="#sejmometr.Posel.pkw_liczba_glosow" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Liczba głosów, którą poseł uzyskał w wyborach.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.pkw_zawod">
+<tt class="descname">pkw_zawod</tt><a class="headerlink" href="#sejmometr.Posel.pkw_zawod" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Zawód posła (według informacji podanej przez posła w zgłoszeniu
+do PKW)
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+</div></blockquote>
+<dl class="attribute">
+<dt id="sejmometr.Posel.wystapienia">
+<tt class="descname">wystapienia</tt><a class="headerlink" href="#sejmometr.Posel.wystapienia" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Lista obiektów typu <a class="reference internal" href="wystapienia.html#sejmometr.Wystapienie" title="sejmometr.Wystapienie"><tt class="xref py py-class docutils literal"><span class="pre">Wystapienie</span></tt></a> będacych wszystkimi
+występieniami posła</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.glosowania">
+<tt class="descname">glosowania</tt><a class="headerlink" href="#sejmometr.Posel.glosowania" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Lista obiektów typu <a class="reference internal" href="glosowania.html#sejmometr.Glosowanie" title="sejmometr.Glosowanie"><tt class="xref py py-class docutils literal"><span class="pre">Glosowanie</span></tt></a> w których poseł miał
+obowiązek uczestniczyć</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.komisje">
+<tt class="descname">komisje</tt><a class="reference internal" href="../_modules/sejmometr.html#Posel.komisje"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Posel.komisje" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Komisje sejmowe, do których poseł należy/należał
+&lt;<tt class="docutils literal"><span class="pre">[{'komisja_id':&lt;int&gt;,</span> <span class="pre">'od':</span> <span class="pre">&lt;unicode&gt;,</span> <span class="pre">'do':</span> <span class="pre">&lt;unicode&gt;,</span> <span class="pre">'funkcja':</span> <span class="pre">&lt;unicode&gt;},</span> <span class="pre">...]</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.osiadczenia_majatkowe">
+<tt class="descname">osiadczenia_majatkowe</tt><a class="headerlink" href="#sejmometr.Posel.osiadczenia_majatkowe" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Lista słowników zawierająćych oświadczenia majątkowe posła.
+&lt;<tt class="docutils literal"><span class="pre">[{'data':</span> <span class="pre">&lt;unicode&gt;,</span> <span class="pre">'dokument_id':&lt;int&gt;},</span> <span class="pre">...]</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.rejestr_korzysci">
+<tt class="descname">rejestr_korzysci</tt><a class="reference internal" href="../_modules/sejmometr.html#Posel.rejestr_korzysci"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Posel.rejestr_korzysci" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Lista słowników zawierających rejestr korzyści majątkowych posła
+&lt;<tt class="docutils literal"><span class="pre">[{'data':</span> <span class="pre">&lt;unicode&gt;,</span> <span class="pre">'tytul':&lt;unicode&gt;,</span> <span class="pre">'dokument_id':&lt;int&gt;},</span> <span class="pre">...]</span></tt>&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
 </dd></dl>
 
 </div>
