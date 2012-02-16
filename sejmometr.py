@@ -326,6 +326,12 @@ class Posel(Common):
         self._rejestr_korzysci = None
 
     @property
+    def info(self):
+        info_ = super(Posel, self).info
+        self._info.klub = Klub(self._info.klub_id)
+        return self._info
+
+    @property
     def rejestr_korzysci(self):
         if self._rejestr_korzysci is None:
             self._rejestr_korzysci = self._get_data(self.id, "rejestr_korzysci")
@@ -342,6 +348,15 @@ class Posel(Common):
         if self._komisje is None:
             self._komisje = self._get_data(self.id, "komisje")
         return self._komisje
+
+class Klub(common):
+    """Klasa opisująca kluby parlamentarne"""
+
+    _all = "kluby"
+
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+
 
 if __name__ == '__main__':
     pass
