@@ -73,6 +73,9 @@ class Common(object):
              "pkw_liczba_glosow":str_,
              "pkw_zawod":str_,
              "skrot": str_,
+             "od": date,
+             "do": date,
+             "funkcja": str_,
              }
     _count = 0
     _info = None
@@ -108,35 +111,15 @@ class Common(object):
         url = "http://api.sejmometr.pl/{name}/{id}/{rest}".format(**url_dict)
         data = get_data(url)
         self._count += 1
-        return data
+        obj = json.loads(data)
+        return obj
 
 
     def _get_info(self):
         """Funkcja zwracająca obiekt typu :class:`Info`"""
-        obj = json.loads(self._get_data(self._id, "info"))
+        obj = self._get_data(self._id, "info")
         self._info = self._get_data_from_list(obj)
-        #self._info = Info()
-        #for k,v in list(obj.items()):
-        #    if k in self.types:
-        #        _type = self.types[k]
-        #    else:
-        #        _type = int
-        #    val = None
-        #    if v is not None:
-        #        if _type is datetime:
-        #            try:
-        #                val = datetime.strptime(v, "%Y-%m-%d %H:%M:%S")
-        #            except ValueError:
-        #                val = str(v)
-        #        elif _type is date:
-        #            if v == "0000-00-00":
-        #                val = None
-        #            else:
-        #                val = datetime.strptime(v, "%Y-%m-%d").date()
-        #        else:
-        #            val = _type(v)
-        #    setattr(self._info, "%s" % k, val)
-        #return True
+
 
     def _get_data_from_list(self, list_):
         """Funkcja parsuje slownik i zwraca obiekt typu :attr:`Info`
@@ -199,7 +182,7 @@ class Common(object):
                 return val
         except AttributeError:
             raise AttributeError
-        obj = json.loads(self._get_data(self._id, name))
+        obj = self._get_data(self._id, name)
         tab = []
         for elem in obj:
             tab.append(cls_(elem))
@@ -278,7 +261,7 @@ class Wystapienie(Common):
     @property
     def tekst(self):
         if self._tekst is None:
-            self._tekst = self._get_data(self.id, "tekst").decode('unicode_escape')
+            self._tekst = self._get_data(self.id, "tekst")
         return self._tekst
 
 
@@ -297,7 +280,7 @@ class Dokument(Common):
     @property
     def tekst(self):
         if self._tekst is None:
-            self._tekst = self._get_data(self.id, "tekst").decode('unicode_escape')
+            self._tekst = self._get_data(self.id, "tekst")
         return self._tekst
 
 class Posel(Common):
@@ -332,7 +315,7 @@ class Posel(Common):
             self._komisje = []
             komisje = self._get_data(self.id, "komisje")
             for obj in komisje:
-                self._komisje.append(self._get_data_from_list(list_))
+                self._komisje.append(self._get_data_from_list(obj))
         return self._komisje
 
 class Klub(Common):
