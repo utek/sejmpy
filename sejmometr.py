@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = "0.6.5"
+__version__ = "0.7.1"
 
 import json
 import sys, re
@@ -264,7 +264,6 @@ class Wystapienie(Common):
             self._tekst = self._get_data(self.id, "tekst")
         return self._tekst
 
-
 class Druk(Common):
     _all = "druki"
 
@@ -275,7 +274,6 @@ class Dokument(Common):
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
         self._tekst = None
-
 
     @property
     def tekst(self):

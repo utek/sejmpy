@@ -127,6 +127,9 @@ class TestWystapien(unittest.TestCase):
         self.assertEqual(self.wy.id, 1)
         self.assertNotEqual(self.wy.info.posiedzenie_id, None)
 
+    def test_tekst(self):
+        self.assertIsInstance(self.wy.tekst, unicode)
+
 class TestPoslow(unittest.TestCase):
     def setUp(self):
         self.obj = Posel(460)
@@ -137,6 +140,11 @@ class TestPoslow(unittest.TestCase):
     def test_info(self):
         self.assertEqual(self.obj.id, 460)
         self.assertIsInstance(self.obj.info.data_urodzenia, datetime.date)
+        self.assertIsInstance(self.obj.info.klub, Klub)
+
+    def test_komisje(self):
+        self.assertIsInstance(self.obj.komisje[0], Info)
+        self.assertIsInstance(self.obj.komisje[0].komisja, Komisja)
 
 class TestKlubow(unittest.TestCase):
     def setUp(self):

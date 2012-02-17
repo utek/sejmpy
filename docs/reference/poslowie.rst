@@ -12,7 +12,7 @@ Poseł
 
         .. attribute:: info
 
-        Obiekt zawierający informacje o pośle
+            Obiekt zawierający informacje o pośle
 
             .. attribute:: slug
 
@@ -85,7 +85,32 @@ Poseł
         .. attribute:: komisje
 
             Komisje sejmowe, do których poseł należy/należał
-            <``[{'komisja_id':<int>, 'od': <unicode>, 'do': <unicode>, 'funkcja': <unicode>}, ...]``>
+            Lista obiektów typu :class:`Info` zawierających następujące atrybuty:
+
+            .. attribute:: komisja_id
+
+                Numer id komisji.
+                <``int``>
+
+            .. attribute:: komisja
+
+                Obiekt typu :class:`Komisja` o id = :attr:`komisja_id`
+
+            .. attribute:: od
+
+                Data dołączenia do komisji przez posła.
+                <``date``>
+
+            .. attribute:: do
+
+                Data zakończenia przez posła pracy w komisji.
+                <``date``>
+
+                .. note::
+
+                    Jeżeli poseł nie zakończył jeszcze pracy w komisji
+                    atrybut ten przyjmuje wartość ``None``
+
 
         .. attribute:: osiadczenia_majatkowe
 
