@@ -10,8 +10,8 @@ from datetime import datetime, date
 def get_data_httplib2(url, *args, **kwargs):
     response = None
     user_agent = "sejmpy/{}".format( __version__)
-    headers = {"User-Agent":user_agent}
-
+    headers = {"User-Agent":user_agent,
+               'cache-control':'3600'}
     try:
         response, content = http.request(url, headers=headers)
     except Exception as e:
@@ -45,6 +45,8 @@ class Info(object):
 
 def get_class(cls):
     return getattr(sys.modules[__name__], cls)
+
+
 
 
 class Common(object):
@@ -111,8 +113,35 @@ class Common(object):
     def _get_info(self):
         """Funkcja zwracająca obiekt typu :class:`Info`"""
         obj = json.loads(self._get_data(self._id, "info"))
-        self._info = Info()
-        for k,v in list(obj.items()):
+        self._info = self._get_data_from_list(obj)
+        #self._info = Info()
+        #for k,v in list(obj.items()):
+        #    if k in self.types:
+        #        _type = self.types[k]
+        #    else:
+        #        _type = int
+        #    val = None
+        #    if v is not None:
+        #        if _type is datetime:
+        #            try:
+        #                val = datetime.strptime(v, "%Y-%m-%d %H:%M:%S")
+        #            except ValueError:
+        #                val = str(v)
+        #        elif _type is date:
+        #            if v == "0000-00-00":
+        #                val = None
+        #            else:
+        #                val = datetime.strptime(v, "%Y-%m-%d").date()
+        #        else:
+        #            val = _type(v)
+        #    setattr(self._info, "%s" % k, val)
+        #return True
+
+    def _get_data_from_list(self, list_):
+        """Funkcja parsuje slownik i zwraca obiekt typu :attr:`Info`
+        gdzie klucze słownika są atrybutami obiektu"""
+        _info = Info()
+        for k,v in list(list_.items()):
             if k in self.types:
                 _type = self.types[k]
             else:
@@ -131,8 +160,8 @@ class Common(object):
                         val = datetime.strptime(v, "%Y-%m-%d").date()
                 else:
                     val = _type(v)
-            setattr(self._info, "%s" % k, val)
-        return True
+            setattr(_info, "%s" % k, val)
+        return _info
 
 
     @property
@@ -369,8 +398,15 @@ class Mowca(Common):
     @property
     def info(self):
         info_ = super(Mowca, self).info
-        self._info.klub = Posel(self._info.posel_id)
+        self._info.posel = Posel(self._info.posel_id)
         return self._info
+
+class Komisja(Common):
+    """Klasa opisująca komisje semowe"""
+
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+
 
 
 if __name__ == '__main__':
