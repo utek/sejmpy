@@ -361,6 +361,7 @@ class Klub(Common):
 
 
 class Mowca(Common):
+    """Klasa opisujaca mówcę"""
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
