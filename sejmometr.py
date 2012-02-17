@@ -2,10 +2,11 @@
 __version__ = "0.6.5"
 
 import json
-import sys
+import sys, re
 from datetime import datetime, date
 
 
+reg = re.compile("(.+)_id")
 
 def get_data_httplib2(url, *args, **kwargs):
     response = None
@@ -141,6 +142,7 @@ class Common(object):
         """Funkcja parsuje slownik i zwraca obiekt typu :attr:`Info`
         gdzie klucze słownika są atrybutami obiektu"""
         _info = Info()
+        _cls_list = dir(sys.modules[__name__])
         for k,v in list(list_.items()):
             if k in self.types:
                 _type = self.types[k]
@@ -161,6 +163,12 @@ class Common(object):
                 else:
                     val = _type(v)
             setattr(_info, "%s" % k, val)
+            r = reg.match(k)
+            if r is not None:
+                _atr_name = r.groups()[0]
+                _cls_name = _atr_name.capitalize()
+                if _cls_name in _cls_list:
+                    setattr(_info, "%s" % _atr_name, get_class(_cls_name)(val))
         return _info
 
 
@@ -229,15 +237,6 @@ class Punkt(Common):
         self._druki = None
 
 
-    @property
-    def info(self):
-        info_ = super(Punkt, self).info
-        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
-        self._info.glosowanie = Glosowanie(self._info.glosowanie_id)
-        self._info.druk = Druk(self._info.druk_id)
-        return self._info
-
-
 class Glosowanie(Common):
     _all = "glosowania"
 
@@ -245,15 +244,6 @@ class Glosowanie(Common):
         self._id = id
         self._wyniki = None #po dopisaniu poslow uwzglednic w metodzie.
 
-    @property
-    def info(self):
-        info_ = super(Glosowanie, self).info
-        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
-        self._info.dzien = Dzien(self._info.dzien_id)
-        self._info.punkt = Punkt(self._info.punkt_id)
-        self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
-        self._info.wystapienie = Wystapienie(self._info.wystapienie_id)
-        return self._info
 
 class Dzien(Common):
     _all = "dni"
@@ -268,13 +258,6 @@ class Dzien(Common):
         self._rozpatrywania = None
         self._wystapienia = None
 
-    @property
-    def info(self):
-        info_ = super(Dzien, self).info
-        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
-        self._info.dokument = Dokument(self._info.dokument_id)
-        return self._info
-
 class Rozpatrywanie(Common):
     _all = "rozpatrywania"
 
@@ -285,15 +268,6 @@ class Rozpatrywanie(Common):
         self._id = id
         self._glosowania = None
         self._wystapienia = None
-
-    @property
-    def info(self):
-        info_ = super(Rozpatrywanie, self).info
-        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
-        self._info.dzien = Dzien(self._info.dzien_id)
-        self._info.punkt = Punkt(self._info.punkt_id)
-        return self._info
-
 
 class Wystapienie(Common):
     _all = "wystapienia"
@@ -307,28 +281,12 @@ class Wystapienie(Common):
             self._tekst = self._get_data(self.id, "tekst").decode('unicode_escape')
         return self._tekst
 
-    @property
-    def info(self):
-        info_ = super(Wystapienie, self).info
-        self._info.posiedzenie = Posiedzenie(self._info.posiedzenie_id)
-        self._info.dzien = Dzien(self._info.dzien_id)
-        self._info.punkt = Punkt(self._info.punkt_id)
-        self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
-        self._info.posel = Posel(self._info.posel_id)
-        return self._info
-
 
 class Druk(Common):
     _all = "druki"
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
-
-    @property
-    def info(self):
-        info_ = super(Druk, self).info
-        self._info.dokument = Dokument(self._info.dokument_id)
-        return self._info
 
 class Dokument(Common):
     def __init__(self, id=None, *args, **kwargs):
@@ -357,12 +315,6 @@ class Posel(Common):
         self._rejestr_korzysci = None
 
     @property
-    def info(self):
-        info_ = super(Posel, self).info
-        self._info.klub = Klub(self._info.klub_id)
-        return self._info
-
-    @property
     def rejestr_korzysci(self):
         if self._rejestr_korzysci is None:
             self._rejestr_korzysci = self._get_data(self.id, "rejestr_korzysci")
@@ -377,7 +329,10 @@ class Posel(Common):
     @property
     def komisje(self):
         if self._komisje is None:
-            self._komisje = self._get_data(self.id, "komisje")
+            self._komisje = []
+            komisje = self._get_data(self.id, "komisje")
+            for obj in komisje:
+                self._komisje.append(self._get_data_from_list(list_))
         return self._komisje
 
 class Klub(Common):
@@ -395,14 +350,8 @@ class Mowca(Common):
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
 
-    @property
-    def info(self):
-        info_ = super(Mowca, self).info
-        self._info.posel = Posel(self._info.posel_id)
-        return self._info
-
 class Komisja(Common):
-    """Klasa opisująca komisje semowe"""
+    """Klasa opisująca komisje sejmowe"""
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
@@ -410,4 +359,6 @@ class Komisja(Common):
 
 
 if __name__ == '__main__':
-    pass
+    i = Punkt(1)
+    print dir(i.info)
+    print i.info.posiedzenie.id, i.info.posiedzenie.info.tytul
