@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6',
+        VERSION:     '0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -65,11 +65,8 @@
 <dd><dl class="attribute">
 <dt>
 <tt class="descname">info</tt><a class="reference internal" href="../_modules/sejmometr.html#Posel.info"><span class="viewcode-link">[źródło]</span></a></dt>
-<dd></dd></dl>
-
-<p>Obiekt zawierający informacje o pośle</p>
-<blockquote>
-<div><dl class="attribute">
+<dd><p>Obiekt zawierający informacje o pośle</p>
+<dl class="attribute">
 <dt id="sejmometr.Posel.slug">
 <tt class="descname">slug</tt><a class="headerlink" href="#sejmometr.Posel.slug" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Fraza używana przez Sejmometr do generowania adresów
@@ -149,7 +146,8 @@ do PKW)
 &lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
 </dd></dl>
 
-</div></blockquote>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="sejmometr.Posel.wystapienia">
 <tt class="descname">wystapienia</tt><a class="headerlink" href="#sejmometr.Posel.wystapienia" title="Stały odnośnik do tej definicji">¶</a></dt>
@@ -168,7 +166,39 @@ obowiązek uczestniczyć</p>
 <dt id="sejmometr.Posel.komisje">
 <tt class="descname">komisje</tt><a class="reference internal" href="../_modules/sejmometr.html#Posel.komisje"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Posel.komisje" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Komisje sejmowe, do których poseł należy/należał
-&lt;<tt class="docutils literal"><span class="pre">[{'komisja_id':&lt;int&gt;,</span> <span class="pre">'od':</span> <span class="pre">&lt;unicode&gt;,</span> <span class="pre">'do':</span> <span class="pre">&lt;unicode&gt;,</span> <span class="pre">'funkcja':</span> <span class="pre">&lt;unicode&gt;},</span> <span class="pre">...]</span></tt>&gt;</p>
+Lista obiektów typu <a class="reference internal" href="../reference.html#sejmometr.Info" title="sejmometr.Info"><tt class="xref py py-class docutils literal"><span class="pre">Info</span></tt></a> zawierających następujące atrybuty:</p>
+<dl class="attribute">
+<dt id="sejmometr.Posel.komisja_id">
+<tt class="descname">komisja_id</tt><a class="headerlink" href="#sejmometr.Posel.komisja_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id komisji.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.komisja">
+<tt class="descname">komisja</tt><a class="headerlink" href="#sejmometr.Posel.komisja" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <a class="reference internal" href="kluby.html#sejmometr.Komisja" title="sejmometr.Komisja"><tt class="xref py py-class docutils literal"><span class="pre">Komisja</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Posel.komisja_id" title="sejmometr.Posel.komisja_id"><tt class="xref py py-attr docutils literal"><span class="pre">komisja_id</span></tt></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.od">
+<tt class="descname">od</tt><a class="headerlink" href="#sejmometr.Posel.od" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Data dołączenia do komisji przez posła.
+&lt;<tt class="docutils literal"><span class="pre">date</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Posel.do">
+<tt class="descname">do</tt><a class="headerlink" href="#sejmometr.Posel.do" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Data zakończenia przez posła pracy w komisji.
+&lt;<tt class="docutils literal"><span class="pre">date</span></tt>&gt;</p>
+<div class="admonition note">
+<p class="first admonition-title">Uwaga</p>
+<p class="last">Jeżeli poseł nie zakończył jeszcze pracy w komisji
+atrybut ten przyjmuje wartość <tt class="docutils literal"><span class="pre">None</span></tt></p>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="attribute">

@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6',
+        VERSION:     '0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
-    <link rel="top" title="Dokumentacja Sejmpy" href="../index.html" /> 
+    <link rel="top" title="Dokumentacja Sejmpy" href="../index.html" />
+    <link rel="up" title="Struktura" href="../reference.html" />
+    <link rel="next" title="Przykład użycia" href="../example.html" />
+    <link rel="prev" title="Dokumenty" href="dokumenty.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +37,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="Indeks ogólny"
              accesskey="I">indeks</a></li>
-        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../example.html" title="Przykład użycia"
+             accesskey="N">dalej</a> |</li>
+        <li class="right" >
+          <a href="dokumenty.html" title="Dokumenty"
+             accesskey="P">wstecz</a> |</li>
+        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li>
+          <li><a href="../reference.html" accesskey="U">Struktura</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,19 +67,112 @@ Posiada następujace atrybuty:</p>
 <dl class="attribute">
 <dt id="sejmometr.Klub.id">
 <tt class="descname">id</tt><a class="headerlink" href="#sejmometr.Klub.id" title="Stały odnośnik do tej definicji">¶</a></dt>
-<dd><p>Numer id klubu</p>
+<dd><p>Numer id klubu
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="sejmometr.Klub.nazwa">
 <tt class="descname">nazwa</tt><a class="headerlink" href="#sejmometr.Klub.nazwa" title="Stały odnośnik do tej definicji">¶</a></dt>
-<dd><p>Nazwa klubu parlamentarnego</p>
+<dd><p>Nazwa klubu parlamentarnego
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="sejmometr.Klub.skrot">
 <tt class="descname">skrot</tt><a class="headerlink" href="#sejmometr.Klub.skrot" title="Stały odnośnik do tej definicji">¶</a></dt>
-<dd><p>Skrót nazwy</p>
+<dd><p>Skrót nazwy.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="mowca">
+<h1>Mówca<a class="headerlink" href="#mowca" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<dl class="class">
+<dt id="sejmometr.Mowca">
+<em class="property">class </em><tt class="descname">Mowca</tt><big>(</big><em>id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sejmometr.Mowca" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa opisujaca mówcę</p>
+<dl class="attribute">
+<dt id="sejmometr.Mowca.info">
+<tt class="descname">info</tt><a class="headerlink" href="#sejmometr.Mowca.info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="sejmometr.Mowca.id">
+<tt class="descname">id</tt><a class="headerlink" href="#sejmometr.Mowca.id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id mówcy.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Mowca.nazwa">
+<tt class="descname">nazwa</tt><a class="headerlink" href="#sejmometr.Mowca.nazwa" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Imię i nazwisko mówcy.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Mowca.posel_id">
+<tt class="descname">posel_id</tt><a class="headerlink" href="#sejmometr.Mowca.posel_id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id posła.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+<div class="admonition note">
+<p class="first admonition-title">Uwaga</p>
+<p class="last">Tylko jeżeli mówca jest także posłem</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Mowca.posel">
+<tt class="descname">posel</tt><a class="headerlink" href="#sejmometr.Mowca.posel" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Obiekt typu <a class="reference internal" href="poslowie.html#sejmometr.Posel" title="sejmometr.Posel"><tt class="xref py py-class docutils literal"><span class="pre">Posel</span></tt></a> o id = <a class="reference internal" href="#sejmometr.Mowca.posel_id" title="sejmometr.Mowca.posel_id"><tt class="xref py py-attr docutils literal"><span class="pre">posel_id</span></tt></a></p>
+<div class="admonition note">
+<p class="first admonition-title">Uwaga</p>
+<p class="last">Tylko jeżeli mówca jest także posłem</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="komisje-semowe">
+<h1>Komisje semowe<a class="headerlink" href="#komisje-semowe" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<dl class="class">
+<dt id="sejmometr.Komisja">
+<em class="property">class </em><tt class="descname">Komisja</tt><big>(</big><em>id=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sejmometr.Komisja" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Klasa opisująca komisje sejmowe</p>
+<dl class="attribute">
+<dt id="sejmometr.Komisja.info">
+<tt class="descname">info</tt><a class="headerlink" href="#sejmometr.Komisja.info" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="sejmometr.Komisja.id">
+<tt class="descname">id</tt><a class="headerlink" href="#sejmometr.Komisja.id" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Numer id komisji.
+&lt;<tt class="docutils literal"><span class="pre">int</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Komisja.nazwa">
+<tt class="descname">nazwa</tt><a class="headerlink" href="#sejmometr.Komisja.nazwa" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Nazwa komisji sejmowej.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Komisja.kod">
+<tt class="descname">kod</tt><a class="headerlink" href="#sejmometr.Komisja.kod" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Kod. &lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sejmometr.Komisja.kontakt">
+<tt class="descname">kontakt</tt><a class="headerlink" href="#sejmometr.Komisja.kontakt" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Dane kontaktowe.
+&lt;<tt class="docutils literal"><span class="pre">unicode</span></tt>&gt;</p>
 </dd></dl>
 
 </dd></dl>
@@ -84,6 +187,19 @@ Posiada następujace atrybuty:</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Spis treści</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Kluby parlamentarne</a></li>
+<li><a class="reference internal" href="#mowca">Mówca</a></li>
+<li><a class="reference internal" href="#komisje-semowe">Komisje semowe</a></li>
+</ul>
+
+  <h4>Poprzedni temat</h4>
+  <p class="topless"><a href="dokumenty.html"
+                        title="poprzedni rozdział">Dokumenty</a></p>
+  <h4>Następny temat</h4>
+  <p class="topless"><a href="../example.html"
+                        title="następny rozdział">Przykład użycia</a></p>
   <h3>Ta strona</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/reference/kluby.txt"
@@ -112,7 +228,14 @@ Posiada następujace atrybuty:</p>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="Indeks ogólny"
              >indeks</a></li>
-        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../example.html" title="Przykład użycia"
+             >dalej</a> |</li>
+        <li class="right" >
+          <a href="dokumenty.html" title="Dokumenty"
+             >wstecz</a> |</li>
+        <li><a href="../index.html">Dokumentacja Sejmpy</a> &raquo;</li>
+          <li><a href="../reference.html" >Struktura</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

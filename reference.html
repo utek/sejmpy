@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6',
+        VERSION:     '0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -65,6 +65,8 @@
 <li class="toctree-l1"><a class="reference internal" href="reference/poslowie.html">Poseł</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/dokumenty.html">Dokumenty</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/kluby.html">Kluby parlamentarne</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/kluby.html#mowca">Mówca</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/kluby.html#komisje-semowe">Komisje semowe</a></li>
 </ul>
 </div>
 <dl class="function">
@@ -96,6 +98,13 @@ jeżeli <cite>httplib2</cite> jest niedostępne to funkcja jest równa
 <dt id="sejmometr.Common._get_data">
 <tt class="descname">_get_data</tt><big>(</big><em>id</em>, <em>rest</em><big>)</big><a class="reference internal" href="_modules/sejmometr.html#Common._get_data"><span class="viewcode-link">[źródło]</span></a><a class="headerlink" href="#sejmometr.Common._get_data" title="Stały odnośnik do tej definicji">¶</a></dt>
 <dd><p>Funkcja pobiera dane z API Sejmometru</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sejmometr.Common._get_data_from_list">
+<tt class="descname">_get_data_from_list</tt><big>(</big><em>list_</em><big>)</big><a class="headerlink" href="#sejmometr.Common._get_data_from_list" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja parsuje slownik i zwraca obiekt typu <a class="reference internal" href="#sejmometr.Info" title="sejmometr.Info"><tt class="xref py py-attr docutils literal"><span class="pre">Info</span></tt></a>
+gdzie klucze słownika są atrybutami obiektu</p>
 </dd></dl>
 
 <dl class="method">
