@@ -275,7 +275,7 @@ class Wystapienie(Common):
     @property
     def tekst(self):
         if self._tekst is None:
-            self._tekst = str(self._get_data(self.id, "tekst"))
+            self._tekst = self._get_data(self.id, "tekst").decode('unicode_escape')
         return self._tekst
 
     @property
@@ -285,6 +285,7 @@ class Wystapienie(Common):
         self._info.dzien = Dzien(self._info.dzien_id)
         self._info.punkt = Punkt(self._info.punkt_id)
         self._info.rozpatrywanie = Rozpatrywanie(self._info.rozpatrywanie_id)
+        self._info.posel = Posel(self._info.posel_id)
         return self._info
 
 
@@ -309,7 +310,7 @@ class Dokument(Common):
     @property
     def tekst(self):
         if self._tekst is None:
-            self._tekst = str(self._get_data(self.id, "tekst"))
+            self._tekst = self._get_data(self.id, "tekst").decode('unicode_escape')
         return self._tekst
 
 class Posel(Common):
@@ -357,6 +358,18 @@ class Klub(Common):
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
+
+
+class Mowca(Common):
+
+    def __init__(self, id=None, *args, **kwargs):
+        self._id = id
+
+    @property
+    def info(self):
+        info_ = super(Mowca, self).info
+        self._info.klub = Posel(self._info.posel_id)
+        return self._info
 
 
 if __name__ == '__main__':
