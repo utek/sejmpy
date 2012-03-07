@@ -220,8 +220,16 @@ class Punkt(Common):
         self._druki = None
 
 
+class Wynik():
+    def __init__(self, data=None, *args, **kwargs):
+        self.posel = Posel(data['posel_id'])
+        self.klub = Klub(data['klub_id'])
+        self.glos = data['glos']
+
+
 class Glosowanie(Common):
     _all = "glosowania"
+    _wyniki_class = "Wynik"
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
