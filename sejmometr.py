@@ -10,7 +10,7 @@ reg = re.compile("(.+)_id")
 
 def get_data_httplib2(url, *args, **kwargs):
     response = None
-    user_agent = "sejmpy/{}".format( __version__)
+    user_agent = "sejmpy/{0}".format( __version__)
     headers = {"User-Agent":user_agent,
                'cache-control':'3600'}
     try:
@@ -85,7 +85,7 @@ class Common(object):
     @classmethod
     def lista(cls):
         "Zwraca liste obiektow"
-        url = "http://api.sejmometr.pl/{}".format(cls._all)
+        url = "http://api.sejmometr.pl/{0}".format(cls._all)
         data = get_data(url)
         obj = json.loads(data)
         tab = []
@@ -169,8 +169,8 @@ class Common(object):
         if name.rfind('class') >= 0:
             raise AttributeError(name.replace("_class", "")[1:] +
                                  " does not exist")
-        _lookup = "_{}".format(name)
-        _class_name = "{}_class".format(_lookup)
+        _lookup = "_{0}".format(name)
+        _class_name = "{0}_class".format(_lookup)
         try:
             cls = getattr(self, _class_name)
         except RuntimeError:
