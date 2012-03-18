@@ -10,7 +10,7 @@ reg = re.compile("(.+)_id")
 
 def get_data_httplib2(url, *args, **kwargs):
     response = None
-    user_agent = "sejmpy/{0}".format( __version__)
+    user_agent = "sejmpy/{0}".format(__version__)
     headers = {"User-Agent":user_agent,
                'cache-control':'3600'}
     try:
@@ -76,6 +76,7 @@ class Common(object):
              "od": date,
              "do": date,
              "funkcja": str_,
+             "opis": str_,
              }
     _count = 0
     _info = None
@@ -126,7 +127,7 @@ class Common(object):
         gdzie klucze słownika są atrybutami obiektu"""
         _info = Info()
         _cls_list = dir(sys.modules[__name__])
-        for k,v in list(list_.items()):
+        for k, v in list(list_.items()):
             if k in self.types:
                 _type = self.types[k]
             else:
