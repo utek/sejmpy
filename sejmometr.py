@@ -10,7 +10,7 @@ reg = re.compile("(.+)_id")
 
 def get_data_httplib2(url, *args, **kwargs):
     response = None
-    user_agent = "sejmpy/{}".format( __version__)
+    user_agent = "sejmpy/{0}".format(__version__)
     headers = {"User-Agent":user_agent,
                'cache-control':'3600'}
     try:
@@ -76,6 +76,7 @@ class Common(object):
              "od": date,
              "do": date,
              "funkcja": str_,
+             "opis": str_,
              }
     _count = 0
     _info = None
@@ -85,7 +86,7 @@ class Common(object):
     @classmethod
     def lista(cls):
         "Zwraca liste obiektow"
-        url = "http://api.sejmometr.pl/{}".format(cls._all)
+        url = "http://api.sejmometr.pl/{0}".format(cls._all)
         data = get_data(url)
         obj = json.loads(data)
         tab = []
@@ -126,7 +127,7 @@ class Common(object):
         gdzie klucze słownika są atrybutami obiektu"""
         _info = Info()
         _cls_list = dir(sys.modules[__name__])
-        for k,v in list(list_.items()):
+        for k, v in list(list_.items()):
             if k in self.types:
                 _type = self.types[k]
             else:
@@ -169,8 +170,8 @@ class Common(object):
         if name.rfind('class') >= 0:
             raise AttributeError(name.replace("_class", "")[1:] +
                                  " does not exist")
-        _lookup = "_{}".format(name)
-        _class_name = "{}_class".format(_lookup)
+        _lookup = "_{0}".format(name)
+        _class_name = "{0}_class".format(_lookup)
         try:
             cls = getattr(self, _class_name)
         except RuntimeError:
@@ -220,8 +221,16 @@ class Punkt(Common):
         self._druki = None
 
 
+class Wynik():
+    def __init__(self, data=None, *args, **kwargs):
+        self.posel = Posel(data['posel_id'])
+        self.klub = Klub(data['klub_id'])
+        self.glos = data['glos']
+
+
 class Glosowanie(Common):
     _all = "glosowania"
+    _wyniki_class = "Wynik"
 
     def __init__(self, id=None, *args, **kwargs):
         self._id = id
